@@ -30,15 +30,22 @@
   --radius-sm:     8px;
 }
 
-/* ── Reset ── */
+/* ── Reset ──
+   No overflow manipulation on html/body —
+   let the browser handle scroll naturally.      */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+
+html {
+  scroll-behavior: smooth;
+  /* NO overflow-y / overflow-x here */
+}
 
 body {
   font-family: 'Lato', sans-serif;
   background: var(--bg);
   color: var(--text);
-  min-height: 100vh;
+  /* NO overflow, NO height, NO min-height —
+     body grows with its content               */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -74,13 +81,9 @@ body {
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
-
 .nav-logo:hover { color: var(--brown-mid); }
 
-.nav-links {
-  display: flex;
-  gap: 0.3rem;
-}
+.nav-links { display: flex; gap: 0.3rem; }
 
 .nav-btn {
   background: none;
@@ -94,13 +97,11 @@ body {
   transition: all 0.2s ease;
   white-space: nowrap;
 }
-
 .nav-btn:hover {
   background: var(--bg);
   border-color: var(--border);
   color: var(--text);
 }
-
 .nav-btn.active {
   background: var(--brown-mid);
   border-color: var(--brown-mid);
@@ -111,29 +112,36 @@ body {
 /* =============================================
    SCREENS & FADE TRANSITIONS
    ============================================= */
-
-/* html & body must allow natural scrolling */
-html { overflow-y: scroll; }
-body { overflow-x: hidden; }
-
 #app {
   padding-top: var(--nav-h);
+  /* NO height, NO overflow — grows with content */
 }
 
+/* All screens hidden by default via visibility+opacity,
+   NOT display:none — this way the document height is
+   always driven by the active screen's real content.   */
 .screen {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* Active screen: fully visible, natural height, scrollable */
+.screen.active {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  overflow: visible;
   padding: 2.5rem 2rem 5rem;
   max-width: 1200px;
   margin: 0 auto;
   animation: fadeUp 0.38s ease forwards;
-  /* No fixed height — let content define it */
 }
 
-.screen.active { display: block; }
-
-/* Centered screens (landing, wrong outcome):
-   Use padding-based vertical centering so content
-   remains scrollable if viewport is short */
+/* Centered screens (landing, wrong outcome) */
 .screen-centered.active {
   display: flex;
   flex-direction: column;
@@ -141,7 +149,9 @@ body { overflow-x: hidden; }
   justify-content: center;
   min-height: calc(100vh - var(--nav-h));
   padding-top: 3rem;
-  padding-bottom: 5rem;
+  padding-bottom: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @keyframes fadeUp {
@@ -152,13 +162,10 @@ body { overflow-x: hidden; }
 /* =============================================
    COMMON COMPONENTS
    ============================================= */
-
-/* Page header (Menu, BTS, About, How It Works) */
 .page-header {
   text-align: center;
   margin-bottom: 2.8rem;
 }
-
 .page-header h2 {
   font-family: 'Playfair Display', serif;
   font-size: 2.1rem;
@@ -166,14 +173,12 @@ body { overflow-x: hidden; }
   color: var(--brown-dark);
   margin-bottom: 0.5rem;
 }
-
 .page-header p {
   font-size: 0.95rem;
   color: var(--text-mid);
   font-style: italic;
 }
 
-/* Photo / image placeholder */
 .placeholder-icon  { font-size: 2.5rem; opacity: 0.3; display: block; margin-bottom: 0.4rem; }
 .placeholder-label { font-size: 0.82rem; color: var(--text-light); font-style: italic; }
 
@@ -223,7 +228,6 @@ body { overflow-x: hidden; }
 }
 .btn-outline:hover { background: var(--bg); border-color: var(--text-mid); }
 
-/* Choice buttons (correct / wrong) */
 .btn-choice {
   flex: 1;
   padding: 0.85rem 1rem;
@@ -237,9 +241,8 @@ body { overflow-x: hidden; }
   line-height: 1.4;
 }
 .btn-choice:hover { filter: brightness(0.9); transform: translateY(-2px); }
-
-.btn-correct { background: var(--success);     color: #fff; }
-.btn-wrong   { background: var(--fail);        color: #fff; }
+.btn-correct { background: var(--success); color: #fff; }
+.btn-wrong   { background: var(--fail);    color: #fff; }
 
 /* =============================================
    LANDING PAGE
@@ -307,7 +310,6 @@ body { overflow-x: hidden; }
   display: flex;
   flex-direction: column;
 }
-
 .menu-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 28px rgba(59, 31, 14, 0.13);
@@ -329,13 +331,11 @@ body { overflow-x: hidden; }
   gap: 0.4rem;
   flex: 1;
 }
-
 .menu-card-body h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
   color: var(--brown-dark);
 }
-
 .menu-card-body p {
   font-size: 0.82rem;
   color: var(--text-light);
@@ -380,13 +380,7 @@ body { overflow-x: hidden; }
   color: var(--brown-dark);
   margin-bottom: 0.3rem;
 }
-
-.hiw-text p {
-  font-size: 0.88rem;
-  color: var(--text-mid);
-  line-height: 1.65;
-}
-
+.hiw-text p    { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; }
 .hiw-text strong { color: var(--brown-dark); }
 
 .hiw-arrow {
@@ -396,10 +390,7 @@ body { overflow-x: hidden; }
   padding: 0.3rem 0;
 }
 
-.hiw-cta {
-  text-align: center;
-  margin-top: 2rem;
-}
+.hiw-cta { text-align: center; margin-top: 2rem; }
 
 /* =============================================
    BTS
@@ -424,7 +415,6 @@ body { overflow-x: hidden; }
   gap: 0.3rem;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .bts-photo:hover {
   transform: scale(1.02);
   box-shadow: 0 6px 18px rgba(59, 31, 14, 0.1);
@@ -460,32 +450,23 @@ body { overflow-x: hidden; }
   gap: 0.3rem;
 }
 
-.team-card-body {
-  padding: 1rem;
-}
-
+.team-card-body { padding: 1rem; }
 .team-card-body h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
   color: var(--brown-dark);
   margin-bottom: 0.2rem;
 }
-
 .team-role {
   font-size: 0.78rem;
   color: var(--brown-light);
   font-style: italic;
   margin-bottom: 0.5rem;
 }
-
-.team-desc {
-  font-size: 0.78rem;
-  color: var(--text-mid);
-  line-height: 1.55;
-}
+.team-desc { font-size: 0.78rem; color: var(--text-mid); line-height: 1.55; }
 
 /* =============================================
-   ITEM SCREENS (Stage 1 & 2, Correct Outcome)
+   ITEM SCREENS
    ============================================= */
 .item-layout {
   display: grid;
@@ -502,7 +483,6 @@ body { overflow-x: hidden; }
   margin-bottom: 1rem;
 }
 
-/* Video placeholder */
 .video-placeholder {
   background: var(--cream);
   border: 2px dashed var(--cream-dark);
@@ -528,13 +508,8 @@ body { overflow-x: hidden; }
   color: var(--brown-mid);
 }
 
-.video-label {
-  font-size: 0.85rem;
-  color: var(--text-light);
-  font-style: italic;
-}
+.video-label { font-size: 0.85rem; color: var(--text-light); font-style: italic; }
 
-/* Decision banner */
 .decision-banner {
   background: #FFF8E7;
   border: 1px solid #F0C060;
@@ -548,16 +523,10 @@ body { overflow-x: hidden; }
   color: #8A6800;
   line-height: 1.5;
 }
-
 .decision-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
 
-/* Choice buttons row */
-.choice-buttons {
-  display: flex;
-  gap: 0.8rem;
-}
+.choice-buttons { display: flex; gap: 0.8rem; }
 
-/* Success banner */
 .success-banner {
   background: var(--success-bg);
   border: 1.5px solid var(--success);
@@ -569,7 +538,7 @@ body { overflow-x: hidden; }
   margin-bottom: 1rem;
 }
 
-/* ── Sidebar ── */
+/* Sidebar */
 .item-sidebar {
   display: flex;
   flex-direction: column;
@@ -577,7 +546,6 @@ body { overflow-x: hidden; }
   padding-top: 0.3rem;
 }
 
-/* Progress bar card */
 .sidebar-progress {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -585,15 +553,10 @@ body { overflow-x: hidden; }
   padding: 1rem 1.1rem;
 }
 
-.progress-track {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.55rem;
-}
+.progress-track { display: flex; align-items: center; margin-bottom: 0.55rem; }
 
 .progress-dot {
-  width: 13px;
-  height: 13px;
+  width: 13px; height: 13px;
   border-radius: 50%;
   background: var(--border);
   flex-shrink: 0;
@@ -602,27 +565,13 @@ body { overflow-x: hidden; }
 .progress-dot.active { background: var(--brown-mid); }
 .progress-dot.done   { background: var(--success); }
 
-.progress-line {
-  flex: 1;
-  height: 2px;
-  background: var(--border);
-}
+.progress-line { flex: 1; height: 2px; background: var(--border); }
 
-.progress-labels {
-  display: flex;
-  justify-content: space-between;
-}
-
-.progress-label {
-  font-size: 0.65rem;
-  color: var(--text-light);
-  text-align: center;
-  flex: 1;
-}
+.progress-labels { display: flex; justify-content: space-between; }
+.progress-label  { font-size: 0.65rem; color: var(--text-light); text-align: center; flex: 1; }
 .progress-label.active { color: var(--brown-mid); font-weight: 700; }
 .progress-label.done   { color: var(--success); }
 
-/* Item pill */
 .sidebar-pill {
   background: var(--cream);
   border: 1.5px solid var(--brown-light);
@@ -635,7 +584,6 @@ body { overflow-x: hidden; }
   color: var(--brown-dark);
 }
 
-/* Hint box */
 .sidebar-hint {
   background: var(--surface-warm);
   border: 1px solid var(--border);
@@ -645,7 +593,6 @@ body { overflow-x: hidden; }
   color: var(--text-mid);
   line-height: 1.75;
 }
-
 .hint-arrows {
   margin-top: 0.5rem;
   font-style: italic;
@@ -653,7 +600,6 @@ body { overflow-x: hidden; }
   font-size: 0.75rem;
 }
 
-/* Checklist (correct outcome) */
 .sidebar-checklist {
   background: var(--success-bg);
   border: 1.5px solid var(--success);
@@ -694,8 +640,7 @@ body { overflow-x: hidden; }
 }
 
 .wrong-icon {
-  width: 88px;
-  height: 88px;
+  width: 88px; height: 88px;
   border-radius: 50%;
   background: var(--fail-bg);
   border: 2px solid var(--fail-border);
@@ -714,12 +659,7 @@ body { overflow-x: hidden; }
   margin-bottom: 0.4rem;
   line-height: 1.55;
 }
-
-.wrong-sub {
-  font-size: 0.85rem;
-  color: var(--text-light);
-  margin-bottom: 1.6rem;
-}
+.wrong-sub { font-size: 0.85rem; color: var(--text-light); margin-bottom: 1.6rem; }
 
 .wrong-video {
   height: 190px;
@@ -729,21 +669,16 @@ body { overflow-x: hidden; }
   margin-right: auto;
 }
 
-.wrong-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
+.wrong-buttons { display: flex; gap: 1rem; justify-content: center; }
 
 /* =============================================
    RESPONSIVE
    ============================================= */
 @media (max-width: 900px) {
-  .team-grid  { grid-template-columns: repeat(2, 1fr); }
+  .team-grid   { grid-template-columns: repeat(2, 1fr); }
   .item-layout { grid-template-columns: 1fr; }
-  .item-sidebar { display: none; } /* hide sidebar on small screens for simplicity */
+  .item-sidebar { display: none; }
 }
-
 @media (max-width: 640px) {
   .menu-grid  { grid-template-columns: 1fr; max-width: 380px; }
   .bts-grid   { grid-template-columns: repeat(2, 1fr); }
