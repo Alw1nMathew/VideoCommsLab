@@ -10,9 +10,6 @@
 </head>
 <body>
 
-  <!-- ============================================================
-       NAV BAR
-  ============================================================ -->
   <nav id="main-nav">
     <div class="nav-inner">
       <div class="nav-logo" onclick="showScreen('landing')">The Brew Lab</div>
@@ -25,37 +22,31 @@
     </div>
   </nav>
 
-  <!-- ============================================================
-       APP — all screens live here
-  ============================================================ -->
   <div id="app">
 
-    <!-- ──────────────────────────────────────
-         SCREEN: LANDING
-    ────────────────────────────────────── -->
-    <section id="screen-landing" class="screen screen-centered">
-      <div class="landing-inner">
-        <h1 class="landing-title">The Brew Lab</h1>
-        <div class="cafe-photo-placeholder">
-          <span class="placeholder-icon">🖼</span>
-          <span class="placeholder-label">[Cafe Photo]</span>
+    <!-- LANDING -->
+    <section id="screen-landing" class="screen">
+      <div class="landing-wrap">
+        <div class="landing-inner">
+          <h1 class="landing-title">The Brew Lab</h1>
+          <div class="cafe-photo-placeholder">
+            <span class="ph-icon">🖼</span>
+            <span class="ph-label">[Cafe Photo]</span>
+          </div>
+          <p class="landing-tagline">An Interactive Barista Experience &nbsp;·&nbsp; Process Matters.</p>
+          <button class="btn-primary btn-large" onclick="showScreen('menu')">Start Your Shift &rarr;</button>
+          <p class="landing-sub">Step behind the counter. Make the right calls at every stage.</p>
         </div>
-        <p class="landing-tagline">An Interactive Barista Experience &nbsp;·&nbsp; Process Matters.</p>
-        <button class="btn-primary btn-large" onclick="showScreen('menu')">Start Your Shift &rarr;</button>
-        <p class="landing-sub">Step behind the counter. Make the right calls at every stage.</p>
       </div>
     </section>
 
-    <!-- ──────────────────────────────────────
-         SCREEN: MENU
-    ────────────────────────────────────── -->
+    <!-- MENU -->
     <section id="screen-menu" class="screen">
       <div class="page-header">
         <h2>Choose Your Order</h2>
         <p>Select a menu item to begin. Each order has 2 decision stages — only one path leads to a perfect result.</p>
       </div>
       <div class="menu-grid">
-
         <div class="menu-card" onclick="startItem('coffee')">
           <div class="menu-card-icon">☕</div>
           <div class="menu-card-body">
@@ -64,7 +55,6 @@
             <button class="btn-secondary">Select</button>
           </div>
         </div>
-
         <div class="menu-card" onclick="startItem('yoghurt')">
           <div class="menu-card-icon">🥣</div>
           <div class="menu-card-body">
@@ -73,7 +63,6 @@
             <button class="btn-secondary">Select</button>
           </div>
         </div>
-
         <div class="menu-card" onclick="startItem('matcha')">
           <div class="menu-card-icon">🍵</div>
           <div class="menu-card-body">
@@ -82,226 +71,166 @@
             <button class="btn-secondary">Select</button>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ──────────────────────────────────────
-         SCREEN: HOW IT WORKS
-    ────────────────────────────────────── -->
+    <!-- HOW IT WORKS -->
     <section id="screen-how-it-works" class="screen">
       <div class="page-header">
         <h2>How It Works</h2>
         <p>A quick guide before you step behind the counter</p>
       </div>
       <div class="hiw-content">
-
         <div class="hiw-step">
-          <div class="hiw-number">1</div>
+          <div class="hiw-num">1</div>
           <div class="hiw-text">
             <h3>Choose a Menu Item</h3>
             <p>Pick one of three items from The Brew Lab menu — Coffee, Yoghurt Bowl, or Matcha. Each carries its own preparation logic.</p>
           </div>
         </div>
         <div class="hiw-arrow">↓</div>
-
         <div class="hiw-step">
-          <div class="hiw-number">2</div>
+          <div class="hiw-num">2</div>
           <div class="hiw-text">
             <h3>Watch the Stage Video</h3>
             <p>Each stage plays a short video showing part of the preparation process. Watch carefully — the details in the video are your only clues.</p>
           </div>
         </div>
         <div class="hiw-arrow">↓</div>
-
         <div class="hiw-step">
-          <div class="hiw-number">3</div>
+          <div class="hiw-num">3</div>
           <div class="hiw-text">
             <h3>Make Your Decision</h3>
-            <p>At the end of each stage you'll face a critical two-option choice. Only one is correct. Choose wrong and the preparation ends immediately — no second chances at that stage.</p>
+            <p>At the end of each stage you'll face a critical two-option choice. Only one is correct. Choose wrong and the preparation ends immediately.</p>
           </div>
         </div>
         <div class="hiw-arrow">↓</div>
-
         <div class="hiw-step">
-          <div class="hiw-number">4</div>
+          <div class="hiw-num">4</div>
           <div class="hiw-text">
             <h3>Reach the Outcome</h3>
-            <p>Nail both decisions and you'll complete the preparation with a perfect result. The core message is simple: <strong>process matters.</strong> Every step counts.</p>
+            <p>Nail both decisions and you'll complete the preparation with a perfect result. The core message: <strong>process matters.</strong></p>
           </div>
         </div>
-
         <div class="hiw-cta">
           <button class="btn-primary" onclick="showScreen('menu')">Start Preparing &rarr;</button>
         </div>
-
       </div>
     </section>
 
-    <!-- ──────────────────────────────────────
-         SCREEN: BTS
-    ────────────────────────────────────── -->
+    <!-- BTS -->
     <section id="screen-bts" class="screen">
       <div class="page-header">
         <h2>Behind the Scenes</h2>
         <p>A look at the making of The Brew Lab</p>
       </div>
       <div class="bts-grid">
-        <div class="bts-photo"><span class="placeholder-icon">🖼</span><span class="placeholder-label">[BTS Photo 1]</span></div>
-        <div class="bts-photo"><span class="placeholder-icon">🖼</span><span class="placeholder-label">[BTS Photo 2]</span></div>
-        <div class="bts-photo"><span class="placeholder-icon">🖼</span><span class="placeholder-label">[BTS Photo 3]</span></div>
-        <div class="bts-photo"><span class="placeholder-icon">🖼</span><span class="placeholder-label">[BTS Photo 4]</span></div>
-        <div class="bts-photo"><span class="placeholder-icon">🖼</span><span class="placeholder-label">[BTS Photo 5]</span></div>
-        <div class="bts-photo"><span class="placeholder-icon">🖼</span><span class="placeholder-label">[BTS Photo 6]</span></div>
+        <div class="bts-photo"><span class="ph-icon">🖼</span><span class="ph-label">[BTS Photo 1]</span></div>
+        <div class="bts-photo"><span class="ph-icon">🖼</span><span class="ph-label">[BTS Photo 2]</span></div>
+        <div class="bts-photo"><span class="ph-icon">🖼</span><span class="ph-label">[BTS Photo 3]</span></div>
+        <div class="bts-photo"><span class="ph-icon">🖼</span><span class="ph-label">[BTS Photo 4]</span></div>
+        <div class="bts-photo"><span class="ph-icon">🖼</span><span class="ph-label">[BTS Photo 5]</span></div>
+        <div class="bts-photo"><span class="ph-icon">🖼</span><span class="ph-label">[BTS Photo 6]</span></div>
       </div>
     </section>
 
-    <!-- ──────────────────────────────────────
-         SCREEN: ABOUT THE TEAM
-    ────────────────────────────────────── -->
+    <!-- ABOUT THE TEAM -->
     <section id="screen-about" class="screen">
       <div class="page-header">
         <h2>About the Team</h2>
         <p>The people behind The Brew Lab</p>
       </div>
       <div class="team-grid">
-
         <div class="team-card">
-          <div class="team-photo"><span class="placeholder-icon">👤</span><span class="placeholder-label">[Photo]</span></div>
-          <div class="team-card-body">
-            <h3>Member 1</h3>
-            <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
-          </div>
+          <div class="team-photo"><span class="ph-icon">👤</span><span class="ph-label">[Photo]</span></div>
+          <div class="team-body"><h3>Member 1</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
         </div>
-
         <div class="team-card">
-          <div class="team-photo"><span class="placeholder-icon">👤</span><span class="placeholder-label">[Photo]</span></div>
-          <div class="team-card-body">
-            <h3>Member 2</h3>
-            <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
-          </div>
+          <div class="team-photo"><span class="ph-icon">👤</span><span class="ph-label">[Photo]</span></div>
+          <div class="team-body"><h3>Member 2</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
         </div>
-
         <div class="team-card">
-          <div class="team-photo"><span class="placeholder-icon">👤</span><span class="placeholder-label">[Photo]</span></div>
-          <div class="team-card-body">
-            <h3>Member 3</h3>
-            <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
-          </div>
+          <div class="team-photo"><span class="ph-icon">👤</span><span class="ph-label">[Photo]</span></div>
+          <div class="team-body"><h3>Member 3</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
         </div>
-
         <div class="team-card">
-          <div class="team-photo"><span class="placeholder-icon">👤</span><span class="placeholder-label">[Photo]</span></div>
-          <div class="team-card-body">
-            <h3>Member 4</h3>
-            <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
-          </div>
+          <div class="team-photo"><span class="ph-icon">👤</span><span class="ph-label">[Photo]</span></div>
+          <div class="team-body"><h3>Member 4</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
         </div>
-
       </div>
     </section>
 
-    <!-- ──────────────────────────────────────
-         SCREEN: ITEM — STAGE (shared template, JS fills content)
-    ────────────────────────────────────── -->
+    <!-- ITEM STAGE (shared, JS fills content) -->
     <section id="screen-item-stage" class="screen">
       <div class="item-layout">
-
-        <!-- Main column -->
         <div class="item-main">
           <h2 class="item-title" id="stage-title"></h2>
-
-          <!-- Video placeholder -->
-          <div class="video-placeholder" id="stage-video-box">
+          <div class="video-box">
             <div class="video-play-btn">▶</div>
             <p class="video-label" id="stage-video-label"></p>
           </div>
-
-          <!-- Decision banner -->
           <div class="decision-banner">
-            <span class="decision-icon">⚠</span>
+            <span class="dec-icon">⚠</span>
             <span id="stage-question"></span>
           </div>
-
-          <!-- Choice buttons -->
-          <div class="choice-buttons">
-            <button class="btn-choice btn-correct" id="stage-btn-a" onclick="handleChoice('A')"></button>
-            <button class="btn-choice btn-wrong"   id="stage-btn-b" onclick="handleChoice('B')"></button>
+          <div class="choice-btns">
+            <button class="btn-correct" id="stage-btn-a" onclick="handleChoice('A')"></button>
+            <button class="btn-wrong"   id="stage-btn-b" onclick="handleChoice('B')"></button>
           </div>
         </div>
-
-        <!-- Sidebar -->
         <aside class="item-sidebar">
-          <div class="sidebar-progress" id="stage-progress"></div>
-          <div class="sidebar-pill"     id="stage-pill"></div>
-          <div class="sidebar-hint"     id="stage-hint"></div>
+          <div id="stage-progress" class="sidebar-card"></div>
+          <div id="stage-pill"     class="sidebar-pill"></div>
+          <div id="stage-hint"     class="sidebar-hint"></div>
         </aside>
-
       </div>
     </section>
 
-    <!-- ──────────────────────────────────────
-         SCREEN: ITEM — CORRECT OUTCOME
-    ────────────────────────────────────── -->
+    <!-- CORRECT OUTCOME -->
     <section id="screen-item-correct" class="screen">
       <div class="item-layout">
-
         <div class="item-main">
           <h2 class="item-title" id="correct-title"></h2>
-
-          <div class="video-placeholder">
+          <div class="video-box">
             <div class="video-play-btn">▶</div>
             <p class="video-label" id="correct-video-label"></p>
           </div>
-
-          <div class="success-banner">
-            ✓&nbsp; Perfect result! You followed the correct process at every stage.
-          </div>
-
-          <div class="choice-buttons">
-            <button class="btn-outline" onclick="startItem(currentItem)">← Try Again</button>
-            <button class="btn-primary" onclick="showScreen('menu')">Back to Menu</button>
+          <div class="success-banner">✓&nbsp; Perfect result! You followed the correct process at every stage.</div>
+          <div class="choice-btns">
+            <button class="btn-outline"  onclick="startItem(currentItem)">← Try Again</button>
+            <button class="btn-primary"  onclick="showScreen('menu')">Back to Menu</button>
           </div>
         </div>
-
         <aside class="item-sidebar">
-          <div class="sidebar-progress" id="correct-progress"></div>
-          <div class="sidebar-pill"     id="correct-pill"></div>
-          <div class="sidebar-checklist" id="correct-checklist"></div>
+          <div id="correct-progress" class="sidebar-card"></div>
+          <div id="correct-pill"     class="sidebar-pill"></div>
+          <div id="correct-check"    class="sidebar-check"></div>
         </aside>
-
       </div>
     </section>
 
-    <!-- ──────────────────────────────────────
-         SCREEN: ITEM — WRONG OUTCOME
-         (JS sets stage-specific content)
-    ────────────────────────────────────── -->
-    <section id="screen-item-wrong" class="screen screen-centered">
-      <div class="wrong-inner">
-        <div class="wrong-tag" id="wrong-tag"></div>
-        <h2 class="wrong-title">Incorrect Choice</h2>
-        <div class="wrong-icon">✗</div>
-        <p class="wrong-message" id="wrong-message"></p>
-        <p class="wrong-sub">Process matters. Every stage requires careful judgment.</p>
-
-        <div class="video-placeholder wrong-video">
-          <div class="video-play-btn">▶</div>
-          <p class="video-label" id="wrong-video-label"></p>
-        </div>
-
-        <div class="wrong-buttons">
-          <button class="btn-outline" id="wrong-retry-btn"></button>
-          <button class="btn-primary" onclick="showScreen('menu')">Back to Menu</button>
+    <!-- WRONG OUTCOME -->
+    <section id="screen-item-wrong" class="screen">
+      <div class="wrong-wrap">
+        <div class="wrong-inner">
+          <div class="wrong-tag" id="wrong-tag"></div>
+          <h2 class="wrong-title">Incorrect Choice</h2>
+          <div class="wrong-icon">✗</div>
+          <p class="wrong-msg"  id="wrong-message"></p>
+          <p class="wrong-sub">Process matters. Every stage requires careful judgment.</p>
+          <div class="video-box wrong-video">
+            <div class="video-play-btn">▶</div>
+            <p class="video-label" id="wrong-video-label"></p>
+          </div>
+          <div class="wrong-btns">
+            <button class="btn-outline"  id="wrong-retry-btn"></button>
+            <button class="btn-primary"  onclick="showScreen('menu')">Back to Menu</button>
+          </div>
         </div>
       </div>
     </section>
 
-  </div><!-- /#app -->
+  </div>
 
   <script src="script.js"></script>
 </body>
