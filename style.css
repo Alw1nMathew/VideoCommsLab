@@ -1,0 +1,739 @@
+/* =============================================
+   THE BREW LAB — style.css
+   Warm cafe aesthetic
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --bg:            #F7F2EA;
+  --surface:       #FFFFFF;
+  --surface-warm:  #FDF8F2;
+  --brown-dark:    #3B1F0E;
+  --brown-mid:     #7B4A2D;
+  --brown-light:   #C49A6C;
+  --cream:         #EDE4D0;
+  --cream-dark:    #D4BC98;
+  --gold:          #C8973A;
+  --success:       #4A7A52;
+  --success-bg:    #EBF5EC;
+  --fail:          #B85042;
+  --fail-bg:       #FBEAE8;
+  --fail-border:   #E9A89A;
+  --text:          #2C1810;
+  --text-mid:      #6B4C3B;
+  --text-light:    #A07860;
+  --border:        #DDD0BE;
+  --nav-h:         58px;
+  --radius:        12px;
+  --radius-sm:     8px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =============================================
+   NAV
+   ============================================= */
+#main-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  box-shadow: 0 2px 16px rgba(59, 31, 14, 0.07);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.nav-logo:hover { color: var(--brown-mid); }
+
+.nav-links {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.nav-btn {
+  background: none;
+  border: 1px solid transparent;
+  padding: 0.38rem 0.85rem;
+  border-radius: 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.83rem;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.nav-btn.active {
+  background: var(--brown-mid);
+  border-color: var(--brown-mid);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* =============================================
+   SCREENS & FADE TRANSITIONS
+   ============================================= */
+#app {
+  padding-top: var(--nav-h);
+  min-height: 100vh;
+}
+
+.screen {
+  display: none;
+  min-height: calc(100vh - var(--nav-h));
+  padding: 2.5rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeUp 0.38s ease forwards;
+}
+
+.screen.active          { display: block; }
+.screen-centered.active { display: flex; align-items: center; justify-content: center; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================
+   COMMON COMPONENTS
+   ============================================= */
+
+/* Page header (Menu, BTS, About, How It Works) */
+.page-header {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.page-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  font-style: italic;
+}
+
+/* Photo / image placeholder */
+.placeholder-icon  { font-size: 2.5rem; opacity: 0.3; display: block; margin-bottom: 0.4rem; }
+.placeholder-label { font-size: 0.82rem; color: var(--text-light); font-style: italic; }
+
+/* ── Buttons ── */
+.btn-primary {
+  background: var(--brown-mid);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.8rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-primary:hover  { background: var(--brown-dark); transform: translateY(-1px); }
+.btn-large          { padding: 0.85rem 2.2rem; font-size: 1.05rem; }
+
+.btn-secondary {
+  display: block;
+  background: var(--surface);
+  color: var(--brown-mid);
+  border: 1.5px solid var(--brown-light);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  width: 100%;
+}
+.btn-secondary:hover { background: var(--bg); border-color: var(--brown-mid); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-mid);
+  border: 1.5px solid var(--border);
+  padding: 0.7rem 1.8rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline:hover { background: var(--bg); border-color: var(--text-mid); }
+
+/* Choice buttons (correct / wrong) */
+.btn-choice {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.18s, transform 0.1s;
+  line-height: 1.4;
+}
+.btn-choice:hover { filter: brightness(0.9); transform: translateY(-2px); }
+
+.btn-correct { background: var(--success);     color: #fff; }
+.btn-wrong   { background: var(--fail);        color: #fff; }
+
+/* =============================================
+   LANDING PAGE
+   ============================================= */
+.landing-inner {
+  max-width: 680px;
+  width: 100%;
+  text-align: center;
+}
+
+.landing-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.02em;
+}
+
+.cafe-photo-placeholder {
+  width: 100%;
+  height: 330px;
+  background: var(--cream);
+  border: 2px dashed var(--cream-dark);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+}
+
+.landing-tagline {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  font-style: italic;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.02em;
+}
+
+.landing-sub {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-top: 1rem;
+}
+
+/* =============================================
+   MENU PAGE
+   ============================================= */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.menu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.22s, box-shadow 0.22s;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(59, 31, 14, 0.13);
+}
+
+.menu-card-icon {
+  background: var(--cream);
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.5rem;
+}
+
+.menu-card-body {
+  padding: 1.1rem 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.menu-card-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--brown-dark);
+}
+
+.menu-card-body p {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  flex: 1;
+}
+
+/* =============================================
+   HOW IT WORKS
+   ============================================= */
+.hiw-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hiw-step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+
+.hiw-number {
+  background: var(--brown-mid);
+  color: #fff;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.hiw-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--brown-dark);
+  margin-bottom: 0.3rem;
+}
+
+.hiw-text p {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  line-height: 1.65;
+}
+
+.hiw-text strong { color: var(--brown-dark); }
+
+.hiw-arrow {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--brown-light);
+  padding: 0.3rem 0;
+}
+
+.hiw-cta {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* =============================================
+   BTS
+   ============================================= */
+.bts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.bts-photo {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bts-photo:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(59, 31, 14, 0.1);
+}
+
+/* =============================================
+   ABOUT THE TEAM
+   ============================================= */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.team-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-photo {
+  background: var(--cream);
+  height: 165px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.team-card-body {
+  padding: 1rem;
+}
+
+.team-card-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--brown-dark);
+  margin-bottom: 0.2rem;
+}
+
+.team-role {
+  font-size: 0.78rem;
+  color: var(--brown-light);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.team-desc {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+
+/* =============================================
+   ITEM SCREENS (Stage 1 & 2, Correct Outcome)
+   ============================================= */
+.item-layout {
+  display: grid;
+  grid-template-columns: 1fr 270px;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.item-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  color: var(--brown-dark);
+  margin-bottom: 1rem;
+}
+
+/* Video placeholder */
+.video-placeholder {
+  background: var(--cream);
+  border: 2px dashed var(--cream-dark);
+  border-radius: var(--radius);
+  height: 310px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.video-play-btn {
+  width: 56px;
+  height: 56px;
+  background: rgba(59, 31, 14, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--brown-mid);
+}
+
+.video-label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* Decision banner */
+.decision-banner {
+  background: #FFF8E7;
+  border: 1px solid #F0C060;
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin-bottom: 0.9rem;
+  font-size: 0.9rem;
+  color: #8A6800;
+  line-height: 1.5;
+}
+
+.decision-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+/* Choice buttons row */
+.choice-buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* Success banner */
+.success-banner {
+  background: var(--success-bg);
+  border: 1.5px solid var(--success);
+  border-radius: var(--radius-sm);
+  padding: 0.78rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 1rem;
+}
+
+/* ── Sidebar ── */
+.item-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.3rem;
+}
+
+/* Progress bar card */
+.sidebar-progress {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+
+.progress-track {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
+.progress-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.progress-dot.active { background: var(--brown-mid); }
+.progress-dot.done   { background: var(--success); }
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-label {
+  font-size: 0.65rem;
+  color: var(--text-light);
+  text-align: center;
+  flex: 1;
+}
+.progress-label.active { color: var(--brown-mid); font-weight: 700; }
+.progress-label.done   { color: var(--success); }
+
+/* Item pill */
+.sidebar-pill {
+  background: var(--cream);
+  border: 1.5px solid var(--brown-light);
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+}
+
+/* Hint box */
+.sidebar-hint {
+  background: var(--surface-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+}
+
+.hint-arrows {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: var(--text-light);
+  font-size: 0.75rem;
+}
+
+/* Checklist (correct outcome) */
+.sidebar-checklist {
+  background: var(--success-bg);
+  border: 1.5px solid var(--success);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--success);
+  line-height: 2;
+}
+
+/* =============================================
+   WRONG OUTCOME SCREEN
+   ============================================= */
+.wrong-inner {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+
+.wrong-tag {
+  display: inline-block;
+  background: var(--fail-bg);
+  border: 1px solid var(--fail-border);
+  color: var(--fail);
+  font-size: 0.78rem;
+  padding: 0.3rem 0.95rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.wrong-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--fail);
+  margin-bottom: 1.2rem;
+}
+
+.wrong-icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: var(--fail-bg);
+  border: 2px solid var(--fail-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+  color: var(--fail);
+  margin: 0 auto 1.3rem;
+}
+
+.wrong-message {
+  font-size: 1rem;
+  color: var(--text-mid);
+  font-style: italic;
+  margin-bottom: 0.4rem;
+  line-height: 1.55;
+}
+
+.wrong-sub {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 1.6rem;
+}
+
+.wrong-video {
+  height: 190px;
+  margin-bottom: 1.6rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrong-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 900px) {
+  .team-grid  { grid-template-columns: repeat(2, 1fr); }
+  .item-layout { grid-template-columns: 1fr; }
+  .item-sidebar { display: none; } /* hide sidebar on small screens for simplicity */
+}
+
+@media (max-width: 640px) {
+  .menu-grid  { grid-template-columns: 1fr; max-width: 380px; }
+  .bts-grid   { grid-template-columns: repeat(2, 1fr); }
+  .team-grid  { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+  .landing-title { font-size: 2.2rem; }
+  .nav-links  { gap: 0.15rem; }
+  .nav-btn    { padding: 0.3rem 0.5rem; font-size: 0.75rem; }
+  .choice-buttons { flex-direction: column; }
+}
