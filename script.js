@@ -78,24 +78,21 @@ const ITEMS = {
  * e.g. showScreen('menu')  →  shows  #screen-menu
  */
 function showScreen(id) {
-  // Fade out all screens
+  // Remove active from all screens — CSS handles hiding via
+  // visibility:hidden + height:0, so the document can always
+  // scroll based on the ONE visible screen's real height.
   document.querySelectorAll('.screen').forEach(s => {
     s.classList.remove('active');
-    s.style.display = 'none';
   });
 
   const el = document.getElementById('screen-' + id);
   if (!el) { console.warn('Screen not found: screen-' + id); return; }
 
-  // Screens that need flex centering
-  const flexScreens = ['landing', 'item-wrong'];
-  el.style.display = flexScreens.includes(id) ? 'flex' : 'block';
-
-  // Trigger reflow so the animation replays
+  // Trigger reflow so the fadeUp animation replays each time
   void el.offsetWidth;
   el.classList.add('active');
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'instant' });
   updateNavHighlight(id);
 }
 
@@ -267,10 +264,7 @@ function setHTML(id, value) {
 // INIT — show landing page on load
 // ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Make sure all screens are hidden first
-  document.querySelectorAll('.screen').forEach(s => {
-    s.style.display = 'none';
-    s.classList.remove('active');
-  });
+  // CSS already hides all screens via visibility:hidden + height:0.
+  // Just activate the landing screen.
   showScreen('landing');
 });
