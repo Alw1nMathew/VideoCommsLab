@@ -1,24 +1,14 @@
 /* =============================================
-   THE BREW LAB — script.js
-   Navigation, game logic, dynamic content
+   THE BREW LAW — script.js
    ============================================= */
 
-// ──────────────────────────────────────────────
-// GLOBAL STATE
-// ──────────────────────────────────────────────
-let currentItem  = null;   // 'coffee' | 'yoghurt' | 'matcha'
-let currentStage = null;   // 1 | 2
+let currentItem  = null;
+let currentStage = null;
 
-// ──────────────────────────────────────────────
-// ITEM DATA
-// Replace placeholder strings with real content
-// when the decision questions are finalised.
-// ──────────────────────────────────────────────
+/* ─── Item data ─────────────────────────────── */
 const ITEMS = {
-
   coffee: {
-    name: 'Coffee',
-    icon: '☕',
+    name: 'Coffee', icon: '☕',
     stage1: {
       question:     '[Stage 1 decision question for Coffee — add specific wording here]',
       optionA:      'A: [Correct option — add label here]  ✓',
@@ -32,10 +22,8 @@ const ITEMS = {
       wrongMessage: '[Explain why this was the wrong choice at Stage 2 for Coffee]',
     },
   },
-
   yoghurt: {
-    name: 'Yoghurt Bowl',
-    icon: '🥣',
+    name: 'Yoghurt Bowl', icon: '🥣',
     stage1: {
       question:     '[Stage 1 decision question for Yoghurt Bowl — add specific wording here]',
       optionA:      'A: [Correct option — add label here]  ✓',
@@ -49,10 +37,8 @@ const ITEMS = {
       wrongMessage: '[Explain why this was the wrong choice at Stage 2 for Yoghurt Bowl]',
     },
   },
-
   matcha: {
-    name: 'Matcha',
-    icon: '🍵',
+    name: 'Matcha', icon: '🍵',
     stage1: {
       question:     '[Stage 1 decision question for Matcha — add specific wording here]',
       optionA:      'A: [Correct option — add label here]  ✓',
@@ -66,205 +52,128 @@ const ITEMS = {
       wrongMessage: '[Explain why this was the wrong choice at Stage 2 for Matcha]',
     },
   },
-
 };
 
-// ──────────────────────────────────────────────
-// SCREEN NAVIGATION
-// ──────────────────────────────────────────────
-
-/**
- * Show a screen by its ID suffix.
- * e.g. showScreen('menu')  →  shows  #screen-menu
- */
+/* ─── Navigation ────────────────────────────── */
 function showScreen(id) {
-  // Remove active from all screens — CSS handles hiding via
-  // visibility:hidden + height:0, so the document can always
-  // scroll based on the ONE visible screen's real height.
-  document.querySelectorAll('.screen').forEach(s => {
-    s.classList.remove('active');
-  });
+  /* Hide all screens by removing .active — CSS sets
+     display:none on .screen (no .active), and
+     display:block on .screen.active.
+     The body grows/shrinks naturally with content. */
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
 
   const el = document.getElementById('screen-' + id);
-  if (!el) { console.warn('Screen not found: screen-' + id); return; }
+  if (!el) return;
 
-  // Trigger reflow so the fadeUp animation replays each time
-  void el.offsetWidth;
   el.classList.add('active');
-
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  updateNavHighlight(id);
+  window.scrollTo(0, 0);
+  updateNav(id);
 }
 
-/** Highlight the correct nav button for the active screen */
-function updateNavHighlight(screenId) {
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-
-  const navMap = {
-    'menu':         'menu',
-    'how-it-works': 'how-it-works',
-    'bts':          'bts',
-    'about':        'about',
-  };
-
-  const target = navMap[screenId];
-  if (target) {
-    const btn = document.querySelector(`.nav-btn[data-target="${target}"]`);
+function updateNav(screenId) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const map = { menu: 'menu', 'how-it-works': 'how-it-works', bts: 'bts', about: 'about' };
+  if (map[screenId]) {
+    const btn = document.querySelector(`.nav-btn[data-target="${map[screenId]}"]`);
     if (btn) btn.classList.add('active');
   }
 }
 
-// ──────────────────────────────────────────────
-// ITEM FLOW
-// ──────────────────────────────────────────────
-
-/** Called when the user selects a menu item */
-function startItem(itemKey) {
-  currentItem  = itemKey;
+/* ─── Item flow ─────────────────────────────── */
+function startItem(key) {
+  currentItem  = key;
   currentStage = 1;
   renderStage(1);
 }
 
-/** Render the shared stage screen with content for the given stage number */
-function renderStage(stageNum) {
-  currentStage = stageNum;
-  const item      = ITEMS[currentItem];
-  const stageData = stageNum === 1 ? item.stage1 : item.stage2;
+function renderStage(num) {
+  currentStage     = num;
+  const item       = ITEMS[currentItem];
+  const data       = num === 1 ? item.stage1 : item.stage2;
 
-  // Title
-  setText('stage-title',       `${item.icon}  ${item.name} — Stage ${stageNum}`);
+  set('stage-title',       item.icon + '  ' + item.name + ' — Stage ' + num);
+  set('stage-video-label', '[ ' + item.name + ' — Stage ' + num + ' Video ]');
+  set('stage-question',    data.question);
+  set('stage-btn-a',       data.optionA);
+  set('stage-btn-b',       data.optionB);
+  set('stage-pill',        item.icon + '  ' + item.name);
 
-  // Video placeholder
-  setText('stage-video-label', `[ ${item.name} — Stage ${stageNum} Video ]`);
+  renderProgress('stage-progress', num);
 
-  // Decision question
-  setText('stage-question',    stageData.question);
-
-  // Choice buttons
-  setText('stage-btn-a',       stageData.optionA);
-  setText('stage-btn-b',       stageData.optionB);
-
-  // Sidebar
-  renderProgressBar('stage-progress', stageNum);
-  setText('stage-pill', `${item.icon}  ${item.name}`);
-
-  const hint = stageNum === 1
-    ? `Only one choice leads forward.<br>Watch the video before deciding.
-       <div class="hint-arrows">→ Correct: Stage 2<br>→ Wrong: End</div>`
-    : `✓ Stage 1 — complete<br>● Stage 2 — in progress
-       <div class="hint-arrows">→ Correct: Outcome<br>→ Wrong: End</div>`;
-  setHTML('stage-hint', hint);
+  const hintText = num === 1
+    ? 'Only one choice leads forward.\nWatch the video before deciding.'
+    : '✓ Stage 1 — complete\n● Stage 2 — in progress';
+  html('stage-hint',
+    '<p>' + hintText.replace('\n', '</p><p>') + '</p>' +
+    '<p class="hint-arrows">→ Correct: ' + (num === 1 ? 'Stage 2' : 'Outcome') + '<br>→ Wrong: End</p>');
 
   showScreen('item-stage');
 }
 
-/** Handle a choice on the current stage */
 function handleChoice(choice) {
   if (choice === 'A') {
-    // ── Correct ──
-    if (currentStage === 1) {
-      renderStage(2);
-    } else {
-      renderCorrectOutcome();
-    }
+    // Correct
+    currentStage === 1 ? renderStage(2) : renderCorrect();
   } else {
-    // ── Wrong ──
-    renderWrongOutcome(currentStage);
+    // Wrong
+    renderWrong(currentStage);
   }
 }
 
-/** Render the correct outcome screen */
-function renderCorrectOutcome() {
+function renderCorrect() {
   const item = ITEMS[currentItem];
-
-  setText('correct-title',       `${item.icon}  ${item.name} — Outcome`);
-  setText('correct-video-label', `[ ${item.name} — Outcome Video (Success) ]`);
-
-  renderProgressBar('correct-progress', 3);
-  setText('correct-pill', `${item.icon}  ${item.name}`);
-  setHTML('correct-checklist', '✓ Stage 1<br>✓ Stage 2<br>✓ Outcome');
-
+  set('correct-title',       item.icon + '  ' + item.name + ' — Outcome');
+  set('correct-video-label', '[ ' + item.name + ' — Outcome Video (Success) ]');
+  set('correct-pill',        item.icon + '  ' + item.name);
+  html('correct-check',      '✓ Stage 1<br>✓ Stage 2<br>✓ Outcome');
+  renderProgress('correct-progress', 3);
   showScreen('item-correct');
 }
 
-/** Render the wrong outcome screen (unique per stage) */
-function renderWrongOutcome(stage) {
-  const item      = ITEMS[currentItem];
-  const stageData = stage === 1 ? item.stage1 : item.stage2;
+function renderWrong(stage) {
+  const item = ITEMS[currentItem];
+  const data = stage === 1 ? item.stage1 : item.stage2;
 
-  // Tag, title already in HTML
-  setText('wrong-tag',         `${item.icon}  ${item.name} — Stage ${stage} failure`);
-  setText('wrong-message',     stageData.wrongMessage);
-  setText('wrong-video-label', `[ ${item.name} — Wrong Outcome Video (Stage ${stage}) ]`);
+  set('wrong-tag',         item.icon + '  ' + item.name + ' — Stage ' + stage + ' failure');
+  set('wrong-message',     data.wrongMessage);
+  set('wrong-video-label', '[ ' + item.name + ' — Wrong Outcome Video (Stage ' + stage + ') ]');
 
-  // "Try Again" button re-starts from the failed stage
-  const retryBtn = document.getElementById('wrong-retry-btn');
-  retryBtn.textContent = `Try Stage ${stage} Again`;
-  retryBtn.onclick     = () => renderStage(stage);
+  const btn = document.getElementById('wrong-retry-btn');
+  btn.textContent = 'Try Stage ' + stage + ' Again';
+  btn.onclick     = () => renderStage(stage);
 
   showScreen('item-wrong');
 }
 
-// ──────────────────────────────────────────────
-// PROGRESS BAR RENDERER
-// ──────────────────────────────────────────────
-
-/**
- * Renders a 3-step progress bar into the given container id.
- * activeStep: 1 = Stage 1, 2 = Stage 2, 3 = Outcome
- */
-function renderProgressBar(containerId, activeStep) {
-  const steps  = ['Stage 1', 'Stage 2', 'Outcome'];
-  const el     = document.getElementById(containerId);
+/* ─── Progress bar ──────────────────────────── */
+function renderProgress(containerId, active) {
+  const labels = ['Stage 1', 'Stage 2', 'Outcome'];
+  const el = document.getElementById(containerId);
   if (!el) return;
 
-  // ── Track (dots + lines) ──
-  let trackHTML = '<div class="progress-track">';
-  steps.forEach((_, i) => {
-    const stepNum  = i + 1;
-    const isDone   = stepNum < activeStep;
-    const isActive = stepNum === activeStep;
-    const cls      = isDone ? 'done' : isActive ? 'active' : '';
-    trackHTML += `<div class="progress-dot ${cls}"></div>`;
-    if (i < steps.length - 1) {
-      trackHTML += '<div class="progress-line"></div>';
-    }
+  let track = '<div class="progress-track">';
+  labels.forEach((_, i) => {
+    const n    = i + 1;
+    const cls  = n < active ? 'done' : n === active ? 'active' : '';
+    track += '<div class="p-dot ' + cls + '"></div>';
+    if (i < labels.length - 1) track += '<div class="p-line"></div>';
   });
-  trackHTML += '</div>';
+  track += '</div>';
 
-  // ── Labels ──
-  let labelsHTML = '<div class="progress-labels">';
-  steps.forEach((label, i) => {
-    const stepNum  = i + 1;
-    const isDone   = stepNum < activeStep;
-    const isActive = stepNum === activeStep;
-    const cls      = isDone ? 'done' : isActive ? 'active' : '';
-    labelsHTML += `<div class="progress-label ${cls}">${isDone ? '✓ ' : ''}${label}</div>`;
+  let lbls = '<div class="progress-labels">';
+  labels.forEach((lbl, i) => {
+    const n   = i + 1;
+    const cls = n < active ? 'done' : n === active ? 'active' : '';
+    lbls += '<div class="p-label ' + cls + '">' + (n < active ? '✓ ' : '') + lbl + '</div>';
   });
-  labelsHTML += '</div>';
+  lbls += '</div>';
 
-  el.innerHTML = trackHTML + labelsHTML;
+  el.innerHTML = track + lbls;
 }
 
-// ──────────────────────────────────────────────
-// UTILITY HELPERS
-// ──────────────────────────────────────────────
+/* ─── Helpers ───────────────────────────────── */
+function set(id, value) { const e = document.getElementById(id); if (e) e.textContent = value; }
+function html(id, value) { const e = document.getElementById(id); if (e) e.innerHTML = value; }
 
-function setText(id, value) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = value;
-}
-
-function setHTML(id, value) {
-  const el = document.getElementById(id);
-  if (el) el.innerHTML = value;
-}
-
-// ──────────────────────────────────────────────
-// INIT — show landing page on load
-// ──────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  // CSS already hides all screens via visibility:hidden + height:0.
-  // Just activate the landing screen.
-  showScreen('landing');
-});
+/* ─── Init ──────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => showScreen('landing'));
