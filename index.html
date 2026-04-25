@@ -10,42 +10,40 @@
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- ═══ NAV ═══ -->
   <nav id="nav">
     <div class="nav-inner">
-      <span class="nav-logo" onclick="go('landing')">The Brew Lab</span>
+      <span class="nav-logo" onclick="scrollTo('#landing')">The Brew Lab</span>
       <div class="nav-links">
-        <button class="nav-btn" data-screen="menu"         onclick="go('menu')">Menu</button>
-        <button class="nav-btn" data-screen="howitworks"   onclick="go('howitworks')">How It Works</button>
-        <button class="nav-btn" data-screen="bts"          onclick="go('bts')">BTS</button>
-        <button class="nav-btn" data-screen="about"        onclick="go('about')">About the Team</button>
+        <a class="nav-btn" href="#menu">Menu</a>
+        <a class="nav-btn" href="#howitworks">How It Works</a>
+        <a class="nav-btn" href="#bts">BTS</a>
+        <a class="nav-btn" href="#about">About the Team</a>
       </div>
     </div>
   </nav>
 
-  <!-- ===== LANDING ===== -->
-  <div id="pg-landing" class="page">
-    <div class="landing-center">
-      <div class="landing-box">
-        <h1 class="landing-title">The Brew Lab</h1>
-        <div class="cafe-photo">
-          <span class="ph-lbl">[Cafe Photo]</span>
-        </div>
-        <p class="landing-tag">An Interactive Barista Experience</p>
-        <button class="btn-green btn-lg" onclick="go('menu')">Start Your Shift &rarr;</button>
-        <p class="landing-sub">Step behind the counter. Make the right calls at every stage.</p>
+  <!-- ═══ LANDING ═══ -->
+  <section id="landing" class="section section-center">
+    <div class="landing-box">
+      <h1 class="landing-title">The Brew Lab</h1>
+      <div class="cafe-photo">
+        <span class="ph-lbl">[Cafe Photo]</span>
       </div>
+      <p class="landing-tag">An Interactive Barista Experience</p>
+      <a class="btn-green btn-lg" href="#menu">Start Your Shift &rarr;</a>
+      <p class="landing-sub">Step behind the counter. Make the right calls at every stage.</p>
     </div>
-  </div>
+  </section>
 
-  <!-- ===== MENU ===== -->
-  <div id="pg-menu" class="page page-pad hidden">
+  <!-- ═══ MENU ═══ -->
+  <section id="menu" class="section section-pad">
     <div class="page-header">
       <h2>Choose Your Order</h2>
       <p>Select a menu item to begin. Each order has 2 decision stages — only one path leads to a perfect result.</p>
     </div>
     <div class="menu-grid">
-      <div class="menu-card" onclick="startItem('coffee')">
+      <div class="menu-card" onclick="openGame('coffee')">
         <div class="menu-icon">☕</div>
         <div class="menu-body">
           <h3>Coffee</h3>
@@ -53,7 +51,7 @@
           <button class="btn-outline-sm">Select</button>
         </div>
       </div>
-      <div class="menu-card" onclick="startItem('yoghurt')">
+      <div class="menu-card" onclick="openGame('yoghurt')">
         <div class="menu-icon">🥣</div>
         <div class="menu-body">
           <h3>Yoghurt Bowl</h3>
@@ -61,7 +59,7 @@
           <button class="btn-outline-sm">Select</button>
         </div>
       </div>
-      <div class="menu-card" onclick="startItem('matcha')">
+      <div class="menu-card" onclick="openGame('matcha')">
         <div class="menu-icon">🍵</div>
         <div class="menu-body">
           <h3>Matcha</h3>
@@ -70,73 +68,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ===== STAGE (shared) ===== -->
-  <div id="pg-stage" class="page page-pad hidden">
-    <div class="stage-layout">
-      <div class="stage-main">
-        <h2 class="stage-title" id="stage-title"></h2>
-        <div class="video-box">
-          <div class="vid-play">▶</div>
-          <p class="vid-lbl" id="stage-vid-lbl"></p>
-        </div>
-        <div class="decision-bar">
-          <span class="dec-warn">⚠</span>
-          <span id="stage-question"></span>
-        </div>
-        <div class="choice-row">
-          <button class="btn-choice" id="btn-a" onclick="choose('A')"></button>
-          <button class="btn-choice" id="btn-b" onclick="choose('B')"></button>
-        </div>
-      </div>
-      <aside class="stage-sidebar">
-        <div class="sidebar-progress" id="stage-prog"></div>
-        <div class="sidebar-hint" id="stage-hint"></div>
-      </aside>
-    </div>
-  </div>
-
-  <!-- ===== CORRECT OUTCOME ===== -->
-  <div id="pg-correct" class="page page-pad hidden">
-    <div class="stage-layout">
-      <div class="stage-main">
-        <h2 class="stage-title" id="correct-title"></h2>
-        <div class="video-box">
-          <div class="vid-play">▶</div>
-          <p class="vid-lbl" id="correct-vid-lbl"></p>
-        </div>
-        <div class="success-bar">✓&nbsp; Perfect result! You followed the correct process at every stage.</div>
-        <div class="choice-row">
-          <button class="btn-ghost" onclick="startItem(currentItem)">← Try Another Item</button>
-          <button class="btn-green" onclick="go('menu')">Back to Menu</button>
-        </div>
-      </div>
-      <aside class="stage-sidebar">
-        <div class="sidebar-progress" id="correct-prog"></div>
-        <div class="sidebar-check"   id="correct-check"></div>
-      </aside>
-    </div>
-  </div>
-
-  <!-- ===== WRONG OUTCOME ===== -->
-  <div id="pg-wrong" class="page page-pad hidden">
-    <div class="wrong-wrap">
-      <div class="wrong-tag-pill" id="wrong-tag"></div>
-      <h2 class="wrong-title">Incorrect Choice</h2>
-      <div class="video-box video-box-wide">
-        <div class="vid-play">▶</div>
-        <p class="vid-lbl" id="wrong-vid-lbl"></p>
-      </div>
-      <div class="wrong-btns">
-        <button class="btn-ghost" id="wrong-retry"></button>
-        <button class="btn-green" onclick="go('menu')">Back to Menu</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== HOW IT WORKS ===== -->
-  <div id="pg-howitworks" class="page page-pad hidden">
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section id="howitworks" class="section section-pad section-alt">
     <div class="page-header">
       <h2>How It Works</h2>
       <p>A quick guide before you step behind the counter</p>
@@ -174,13 +109,13 @@
         </div>
       </div>
       <div class="hiw-cta">
-        <button class="btn-green btn-lg" onclick="go('menu')">Start Preparing &rarr;</button>
+        <a class="btn-green btn-lg" href="#menu">Start Preparing &rarr;</a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ===== BTS ===== -->
-  <div id="pg-bts" class="page page-pad hidden">
+  <!-- ═══ BTS ═══ -->
+  <section id="bts" class="section section-pad">
     <div class="page-header">
       <h2>Behind the Scenes</h2>
       <p>A look at the making of The Brew Lab</p>
@@ -193,67 +128,104 @@
       <div class="bts-photo"><span class="ph-lbl">[BTS Photo 5]</span></div>
       <div class="bts-photo"><span class="ph-lbl">[BTS Photo 6]</span></div>
     </div>
-  </div>
+  </section>
 
-  <!-- ===== ABOUT ===== -->
-  <div id="pg-about" class="page page-pad hidden">
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about" class="section section-pad section-alt">
     <div class="page-header">
       <h2>About the Team</h2>
       <p>The people behind The Brew Lab</p>
     </div>
     <div class="team-grid">
       <div class="team-card">
-        <div class="team-photo">
-          <svg class="person-icon" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="28" r="18" fill="#BBBBBB"/>
-            <rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/>
-          </svg>
-        </div>
-        <div class="team-body">
-          <h3>Member 1</h3>
-          <p class="team-role">[Role / Title]</p>
-          <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
-        </div>
+        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
+        <div class="team-body"><h3>Member 1</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
       </div>
       <div class="team-card">
-        <div class="team-photo">
-          <svg class="person-icon" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="28" r="18" fill="#BBBBBB"/>
-            <rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/>
-          </svg>
-        </div>
-        <div class="team-body">
-          <h3>Member 2</h3>
-          <p class="team-role">[Role / Title]</p>
-          <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
-        </div>
+        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
+        <div class="team-body"><h3>Member 2</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
       </div>
       <div class="team-card">
-        <div class="team-photo">
-          <svg class="person-icon" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="28" r="18" fill="#BBBBBB"/>
-            <rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/>
-          </svg>
-        </div>
-        <div class="team-body">
-          <h3>Member 3</h3>
-          <p class="team-role">[Role / Title]</p>
-          <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
-        </div>
+        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
+        <div class="team-body"><h3>Member 3</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
       </div>
       <div class="team-card">
-        <div class="team-photo">
-          <svg class="person-icon" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="28" r="18" fill="#BBBBBB"/>
-            <rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/>
-          </svg>
-        </div>
-        <div class="team-body">
-          <h3>Member 4</h3>
-          <p class="team-role">[Role / Title]</p>
-          <p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p>
+        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
+        <div class="team-body"><h3>Member 4</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GAME OVERLAY (opens when user picks a menu item) ═══ -->
+  <div id="overlay" class="overlay hidden">
+    <div class="overlay-inner">
+
+      <!-- STAGE SCREEN -->
+      <div id="ov-stage" class="ov-screen">
+        <button class="overlay-close" onclick="closeGame()">✕ Close</button>
+        <div class="stage-layout">
+          <div class="stage-main">
+            <h2 class="stage-title" id="stage-title"></h2>
+            <div class="video-box">
+              <div class="vid-play">▶</div>
+              <p class="vid-lbl" id="stage-vid"></p>
+            </div>
+            <div class="decision-bar">
+              <span class="dec-icon">⚠</span>
+              <span id="stage-q"></span>
+            </div>
+            <div class="choice-row">
+              <button class="btn-choice" id="btn-a" onclick="choose('A')"></button>
+              <button class="btn-choice" id="btn-b" onclick="choose('B')"></button>
+            </div>
+          </div>
+          <aside class="stage-sidebar">
+            <div id="stage-prog" class="sidebar-progress"></div>
+            <div id="stage-hint" class="sidebar-hint"></div>
+          </aside>
         </div>
       </div>
+
+      <!-- CORRECT OUTCOME -->
+      <div id="ov-correct" class="ov-screen hidden">
+        <button class="overlay-close" onclick="closeGame()">✕ Close</button>
+        <div class="stage-layout">
+          <div class="stage-main">
+            <h2 class="stage-title" id="correct-title"></h2>
+            <div class="video-box">
+              <div class="vid-play">▶</div>
+              <p class="vid-lbl" id="correct-vid"></p>
+            </div>
+            <div class="success-bar">✓&nbsp; Perfect result! You followed the correct process at every stage.</div>
+            <div class="choice-row">
+              <button class="btn-ghost" onclick="restartItem()">← Try Again</button>
+              <button class="btn-green" onclick="closeGame()">Back to Menu</button>
+            </div>
+          </div>
+          <aside class="stage-sidebar">
+            <div id="correct-prog" class="sidebar-progress"></div>
+            <div id="correct-check" class="sidebar-check"></div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- WRONG OUTCOME -->
+      <div id="ov-wrong" class="ov-screen hidden">
+        <button class="overlay-close" onclick="closeGame()">✕ Close</button>
+        <div class="wrong-wrap">
+          <div class="wrong-tag-pill" id="wrong-tag"></div>
+          <h2 class="wrong-title">Incorrect Choice</h2>
+          <div class="video-box video-box-wide">
+            <div class="vid-play">▶</div>
+            <p class="vid-lbl" id="wrong-vid"></p>
+          </div>
+          <div class="wrong-btns">
+            <button class="btn-ghost" id="wrong-retry"></button>
+            <button class="btn-green" onclick="closeGame()">Back to Menu</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
