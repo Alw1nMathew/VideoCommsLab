@@ -5,169 +5,217 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Brew Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- ═══ NAV ═══ -->
+  <!-- NAV -->
   <nav id="nav">
     <div class="nav-inner">
-      <span class="nav-logo" onclick="scrollTo('#landing')">The Brew Lab</span>
+      <a class="nav-logo" href="#landing">The Brew Lab</a>
       <div class="nav-links">
         <a class="nav-btn" href="#menu">Menu</a>
         <a class="nav-btn" href="#howitworks">How It Works</a>
         <a class="nav-btn" href="#bts">BTS</a>
-        <a class="nav-btn" href="#about">About the Team</a>
+        <a class="nav-btn" href="#about">About</a>
       </div>
     </div>
   </nav>
 
-  <!-- ═══ LANDING ═══ -->
-  <section id="landing" class="section section-center">
-    <div class="landing-box">
-      <h1 class="landing-title">The Brew Lab</h1>
+  <!-- ══════════════ LANDING ══════════════ -->
+  <section id="landing">
+    <div class="landing-inner">
+      <p class="landing-eyebrow">An Interactive Barista Experience</p>
+      <h1 class="landing-title">The Brew<br><em>Lab</em></h1>
       <div class="cafe-photo">
-        <span class="ph-lbl">[Cafe Photo]</span>
+        <div class="cafe-photo-label">[Cafe Photo]</div>
       </div>
-      <p class="landing-tag">An Interactive Barista Experience</p>
-      <a class="btn-green btn-lg" href="#menu">Start Your Shift &rarr;</a>
+      <a href="#menu" class="btn-primary">Start Your Shift <span class="btn-arrow">→</span></a>
       <p class="landing-sub">Step behind the counter. Make the right calls at every stage.</p>
     </div>
   </section>
 
-  <!-- ═══ MENU ═══ -->
-  <section id="menu" class="section section-pad">
-    <div class="page-header">
-      <h2>Choose Your Order</h2>
-      <p>Select a menu item to begin. Each order has 2 decision stages — only one path leads to a perfect result.</p>
-    </div>
-    <div class="menu-grid">
-      <div class="menu-card" onclick="openGame('coffee')">
-        <div class="menu-icon">☕</div>
-        <div class="menu-body">
-          <h3>Coffee</h3>
-          <p>Espresso-based preparation</p>
-          <button class="btn-outline-sm">Select</button>
-        </div>
+  <!-- ══════════════ MENU ══════════════ -->
+  <section id="menu">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Order Up</span>
+        <h2>Choose Your Order</h2>
+        <p>Select a menu item to begin. Two decision stages — only one path leads to a perfect result.</p>
       </div>
-      <div class="menu-card" onclick="openGame('yoghurt')">
-        <div class="menu-icon">🥣</div>
-        <div class="menu-body">
-          <h3>Yoghurt Bowl</h3>
-          <p>Assembly-based preparation</p>
-          <button class="btn-outline-sm">Select</button>
+      <div class="menu-grid">
+
+        <div class="menu-card" onclick="openGame('coffee')">
+          <div class="menu-card-top">
+            <div class="menu-emoji">☕</div>
+            <div class="menu-number">01</div>
+          </div>
+          <div class="menu-card-body">
+            <h3>Coffee</h3>
+            <p>Espresso-based preparation</p>
+          </div>
+          <div class="menu-card-footer">
+            <span class="menu-cta">Select &rarr;</span>
+          </div>
         </div>
-      </div>
-      <div class="menu-card" onclick="openGame('matcha')">
-        <div class="menu-icon">🍵</div>
-        <div class="menu-body">
-          <h3>Matcha</h3>
-          <p>Blend-based preparation</p>
-          <button class="btn-outline-sm">Select</button>
+
+        <div class="menu-card" onclick="openGame('yoghurt')">
+          <div class="menu-card-top">
+            <div class="menu-emoji">🥣</div>
+            <div class="menu-number">02</div>
+          </div>
+          <div class="menu-card-body">
+            <h3>Yoghurt Bowl</h3>
+            <p>Assembly-based preparation</p>
+          </div>
+          <div class="menu-card-footer">
+            <span class="menu-cta">Select &rarr;</span>
+          </div>
         </div>
+
+        <div class="menu-card" onclick="openGame('matcha')">
+          <div class="menu-card-top">
+            <div class="menu-emoji">🍵</div>
+            <div class="menu-number">03</div>
+          </div>
+          <div class="menu-card-body">
+            <h3>Matcha</h3>
+            <p>Blend-based preparation</p>
+          </div>
+          <div class="menu-card-footer">
+            <span class="menu-cta">Select &rarr;</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══ HOW IT WORKS ═══ -->
-  <section id="howitworks" class="section section-pad section-alt">
-    <div class="page-header">
-      <h2>How It Works</h2>
-      <p>A quick guide before you step behind the counter</p>
-    </div>
-    <div class="hiw-list">
-      <div class="hiw-card">
-        <div class="hiw-num">1</div>
-        <div class="hiw-text">
+  <!-- ══════════════ HOW IT WORKS ══════════════ -->
+  <section id="howitworks" class="section-dark">
+    <div class="section-inner">
+      <div class="section-header section-header-light">
+        <span class="section-tag section-tag-light">The Process</span>
+        <h2>How It Works</h2>
+        <p>A quick guide before you step behind the counter</p>
+      </div>
+      <div class="hiw-grid">
+        <div class="hiw-card">
+          <div class="hiw-num">01</div>
           <h3>Choose a Menu Item</h3>
-          <p>Pick one of three items from The Brew Lab menu — Coffee, Yoghurt Bowl, or Matcha. Each carries its own preparation logic.</p>
+          <p>Pick one of three items — Coffee, Yoghurt Bowl, or Matcha. Each carries its own preparation logic.</p>
         </div>
-      </div>
-      <div class="hiw-arrow">↓</div>
-      <div class="hiw-card">
-        <div class="hiw-num">2</div>
-        <div class="hiw-text">
+        <div class="hiw-connector">→</div>
+        <div class="hiw-card">
+          <div class="hiw-num">02</div>
           <h3>Watch the Stage Video</h3>
-          <p>Each stage plays a short video showing part of the preparation process. Watch carefully — the details in the video are your only clues.</p>
+          <p>Each stage plays a short video. Watch carefully — the details are your only clues.</p>
         </div>
-      </div>
-      <div class="hiw-arrow">↓</div>
-      <div class="hiw-card">
-        <div class="hiw-num">3</div>
-        <div class="hiw-text">
+        <div class="hiw-connector">→</div>
+        <div class="hiw-card">
+          <div class="hiw-num">03</div>
           <h3>Make Your Decision</h3>
-          <p>At the end of each stage you'll face a critical two-option choice. Only one is correct. Choose wrong and the preparation ends immediately.</p>
+          <p>Two options appear. Only one is correct. Choose wrong and the preparation ends immediately.</p>
         </div>
-      </div>
-      <div class="hiw-arrow">↓</div>
-      <div class="hiw-card">
-        <div class="hiw-num">4</div>
-        <div class="hiw-text">
+        <div class="hiw-connector">→</div>
+        <div class="hiw-card hiw-card-accent">
+          <div class="hiw-num">04</div>
           <h3>Reach the Outcome</h3>
-          <p>Nail both decisions and you'll complete the preparation with a perfect result. The core message: <strong>process matters.</strong></p>
+          <p>Nail both decisions and complete the preparation. The core message: <strong>process matters.</strong></p>
         </div>
       </div>
       <div class="hiw-cta">
-        <a class="btn-green btn-lg" href="#menu">Start Preparing &rarr;</a>
+        <a href="#menu" class="btn-primary btn-light">Start Preparing <span class="btn-arrow">→</span></a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ BTS ═══ -->
-  <section id="bts" class="section section-pad">
-    <div class="page-header">
-      <h2>Behind the Scenes</h2>
-      <p>A look at the making of The Brew Lab</p>
-    </div>
-    <div class="bts-grid">
-      <div class="bts-photo"><span class="ph-lbl">[BTS Photo 1]</span></div>
-      <div class="bts-photo"><span class="ph-lbl">[BTS Photo 2]</span></div>
-      <div class="bts-photo"><span class="ph-lbl">[BTS Photo 3]</span></div>
-      <div class="bts-photo"><span class="ph-lbl">[BTS Photo 4]</span></div>
-      <div class="bts-photo"><span class="ph-lbl">[BTS Photo 5]</span></div>
-      <div class="bts-photo"><span class="ph-lbl">[BTS Photo 6]</span></div>
-    </div>
-  </section>
-
-  <!-- ═══ ABOUT ═══ -->
-  <section id="about" class="section section-pad section-alt">
-    <div class="page-header">
-      <h2>About the Team</h2>
-      <p>The people behind The Brew Lab</p>
-    </div>
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
-        <div class="team-body"><h3>Member 1</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
+  <!-- ══════════════ BTS ══════════════ -->
+  <section id="bts">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Behind the Scenes</span>
+        <h2>Making of The Brew Lab</h2>
+        <p>A look at the process behind the project</p>
       </div>
-      <div class="team-card">
-        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
-        <div class="team-body"><h3>Member 2</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
-      </div>
-      <div class="team-card">
-        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
-        <div class="team-body"><h3>Member 3</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
-      </div>
-      <div class="team-card">
-        <div class="team-photo"><svg viewBox="0 0 80 90" class="person-svg"><circle cx="40" cy="28" r="18" fill="#BBBBBB"/><rect x="10" y="54" width="60" height="36" rx="14" fill="#BBBBBB"/></svg></div>
-        <div class="team-body"><h3>Member 4</h3><p class="team-role">[Role / Title]</p><p class="team-desc">[Description text goes here. A brief overview of this team member's contribution to The Brew Lab project.]</p></div>
+      <div class="bts-grid">
+        <div class="bts-photo bts-large"><span class="ph-lbl">[BTS Photo 1]</span></div>
+        <div class="bts-photo"><span class="ph-lbl">[BTS Photo 2]</span></div>
+        <div class="bts-photo"><span class="ph-lbl">[BTS Photo 3]</span></div>
+        <div class="bts-photo"><span class="ph-lbl">[BTS Photo 4]</span></div>
+        <div class="bts-photo bts-large bts-right"><span class="ph-lbl">[BTS Photo 5]</span></div>
+        <div class="bts-photo bts-right"><span class="ph-lbl">[BTS Photo 6]</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ GAME OVERLAY (opens when user picks a menu item) ═══ -->
+  <!-- ══════════════ ABOUT ══════════════ -->
+  <section id="about" class="section-dark">
+    <div class="section-inner">
+      <div class="section-header section-header-light">
+        <span class="section-tag section-tag-light">The Team</span>
+        <h2>About the Team</h2>
+        <p>The people behind The Brew Lab</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-photo">
+            <svg viewBox="0 0 100 110" class="person-svg"><circle cx="50" cy="35" r="22" fill="rgba(255,255,255,0.25)"/><rect x="12" y="67" width="76" height="43" rx="18" fill="rgba(255,255,255,0.25)"/></svg>
+          </div>
+          <div class="team-body">
+            <h3>Member 1</h3>
+            <p class="team-role">[Role / Title]</p>
+            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">
+            <svg viewBox="0 0 100 110" class="person-svg"><circle cx="50" cy="35" r="22" fill="rgba(255,255,255,0.25)"/><rect x="12" y="67" width="76" height="43" rx="18" fill="rgba(255,255,255,0.25)"/></svg>
+          </div>
+          <div class="team-body">
+            <h3>Member 2</h3>
+            <p class="team-role">[Role / Title]</p>
+            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">
+            <svg viewBox="0 0 100 110" class="person-svg"><circle cx="50" cy="35" r="22" fill="rgba(255,255,255,0.25)"/><rect x="12" y="67" width="76" height="43" rx="18" fill="rgba(255,255,255,0.25)"/></svg>
+          </div>
+          <div class="team-body">
+            <h3>Member 3</h3>
+            <p class="team-role">[Role / Title]</p>
+            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">
+            <svg viewBox="0 0 100 110" class="person-svg"><circle cx="50" cy="35" r="22" fill="rgba(255,255,255,0.25)"/><rect x="12" y="67" width="76" height="43" rx="18" fill="rgba(255,255,255,0.25)"/></svg>
+          </div>
+          <div class="team-body">
+            <h3>Member 4</h3>
+            <p class="team-role">[Role / Title]</p>
+            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ GAME OVERLAY ══════════════ -->
   <div id="overlay" class="overlay hidden">
-    <div class="overlay-inner">
+    <div class="overlay-panel">
 
-      <!-- STAGE SCREEN -->
+      <button class="overlay-close" onclick="closeGame()">✕</button>
+
+      <!-- STAGE -->
       <div id="ov-stage" class="ov-screen">
-        <button class="overlay-close" onclick="closeGame()">✕ Close</button>
-        <div class="stage-layout">
-          <div class="stage-main">
-            <h2 class="stage-title" id="stage-title"></h2>
+        <div class="ov-layout">
+          <div class="ov-main">
+            <h2 class="ov-title" id="stage-title"></h2>
             <div class="video-box">
-              <div class="vid-play">▶</div>
+              <div class="vid-btn">▶</div>
               <p class="vid-lbl" id="stage-vid"></p>
             </div>
             <div class="decision-bar">
@@ -179,49 +227,47 @@
               <button class="btn-choice" id="btn-b" onclick="choose('B')"></button>
             </div>
           </div>
-          <aside class="stage-sidebar">
-            <div id="stage-prog" class="sidebar-progress"></div>
-            <div id="stage-hint" class="sidebar-hint"></div>
+          <aside class="ov-sidebar">
+            <div id="stage-prog" class="prog-card"></div>
+            <div id="stage-hint" class="hint-card"></div>
           </aside>
         </div>
       </div>
 
-      <!-- CORRECT OUTCOME -->
+      <!-- CORRECT -->
       <div id="ov-correct" class="ov-screen hidden">
-        <button class="overlay-close" onclick="closeGame()">✕ Close</button>
-        <div class="stage-layout">
-          <div class="stage-main">
-            <h2 class="stage-title" id="correct-title"></h2>
+        <div class="ov-layout">
+          <div class="ov-main">
+            <h2 class="ov-title" id="correct-title"></h2>
             <div class="video-box">
-              <div class="vid-play">▶</div>
+              <div class="vid-btn">▶</div>
               <p class="vid-lbl" id="correct-vid"></p>
             </div>
-            <div class="success-bar">✓&nbsp; Perfect result! You followed the correct process at every stage.</div>
+            <div class="success-bar">✓ &nbsp;Perfect result! You followed the correct process at every stage.</div>
             <div class="choice-row">
               <button class="btn-ghost" onclick="restartItem()">← Try Again</button>
-              <button class="btn-green" onclick="closeGame()">Back to Menu</button>
+              <button class="btn-primary" onclick="closeGame()">Back to Menu</button>
             </div>
           </div>
-          <aside class="stage-sidebar">
-            <div id="correct-prog" class="sidebar-progress"></div>
-            <div id="correct-check" class="sidebar-check"></div>
+          <aside class="ov-sidebar">
+            <div id="correct-prog" class="prog-card"></div>
+            <div id="correct-check" class="check-card"></div>
           </aside>
         </div>
       </div>
 
-      <!-- WRONG OUTCOME -->
+      <!-- WRONG -->
       <div id="ov-wrong" class="ov-screen hidden">
-        <button class="overlay-close" onclick="closeGame()">✕ Close</button>
-        <div class="wrong-wrap">
-          <div class="wrong-tag-pill" id="wrong-tag"></div>
+        <div class="wrong-center">
+          <div class="wrong-pill" id="wrong-tag"></div>
           <h2 class="wrong-title">Incorrect Choice</h2>
-          <div class="video-box video-box-wide">
-            <div class="vid-play">▶</div>
+          <div class="video-box video-wide">
+            <div class="vid-btn">▶</div>
             <p class="vid-lbl" id="wrong-vid"></p>
           </div>
-          <div class="wrong-btns">
+          <div class="wrong-row">
             <button class="btn-ghost" id="wrong-retry"></button>
-            <button class="btn-green" onclick="closeGame()">Back to Menu</button>
+            <button class="btn-primary" onclick="closeGame()">Back to Menu</button>
           </div>
         </div>
       </div>
