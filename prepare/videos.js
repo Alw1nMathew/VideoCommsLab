@@ -1,12 +1,5 @@
 /**
  * THE BREW LAB — Video URLs
- * ===========================
- * Maps each story node's videoKey to a Cloudinary URL.
- * Leave a key as '' and the experience will show a
- * placeholder with a "Continue →" button instead.
- *
- * Note: .mov files are served as .mp4 via Cloudinary's
- * on-the-fly transcoding (better browser compatibility).
  */
 
 const VIDEOS = {
