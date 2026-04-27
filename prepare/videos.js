@@ -15,38 +15,37 @@ const VIDEOS = {
 
   /* ── YOGHURT BOWL ───────────────────────────────────────── */
   yoghurt: {
-    // Plays when user first selects Yoghurt Bowl
+    // intro node — plays when user first selects Yoghurt Bowl
     intro:         'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777306119/yoghurt_bowl_start_kbh4t7.mp4',
 
-    // Plays during Stage 1 (oats choice screen)
+    // step1 choice node — plays before Stage 1 question appears
     step1_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307465/yoghurt_bowl_step_1_os6tmf.mp4',
 
-    // Plays when wrong choice at Stage 1 (brussels sprouts)
+    // step2_video node — plays after correct Stage 1 pick (oats), before Stage 2 question
+    step2_video:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307514/yoghurt_bowl_step_2_oqbrce.mp4',
+
+    // fail nodes — same failure video used for both Stage 1 and Stage 2 wrong choices
     step1_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307475/yoghurt_bowl_failure_jf25md.mp4',
-
-    // Plays for the success outcome
-    step2_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307576/yoghurt_bowl_success_qk2ule.mp4',
-
-    // Plays when wrong choice at Stage 2 (salami) — same failure video
     step2_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307475/yoghurt_bowl_failure_jf25md.mp4',
+
+    // success node — plays as the final correct outcome
+    step2_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307576/yoghurt_bowl_success_qk2ule.mp4',
   },
 
   /* ── MATCHA ─────────────────────────────────────────────── */
   matcha: {
-    // Plays when user first selects Matcha
+    // intro node
     intro:         'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307713/VideoStart_fvpruw.mp4',
 
-    // Plays during Stage 1 (75°C correct choice screen)
+    // step1 choice node — plays before Stage 1 question appears
     step1_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307709/Stage1Correct_hsikvl.mp4',
 
-    // Plays when wrong choice at Stage 1 (100°C / boiling)
+    // fail nodes
     step1_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307710/Stage1Fail_y7u7rg.mp4',
-
-    // Plays for the success outcome
-    step2_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307712/Stage2Outcome_lm99sg.mp4',
-
-    // Plays when wrong choice at Stage 2 (wrong milk method)
     step2_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307711/Stage2Fail_og5bqb.mp4',
+
+    // success node
+    step2_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307712/Stage2Outcome_lm99sg.mp4',
   },
 
 };
