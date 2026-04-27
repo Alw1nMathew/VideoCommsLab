@@ -2,128 +2,258 @@
    THE BREW LAB — script.js
    ============================================= */
 
-let currentItem  = null;
-let currentStage = null;
+/* ── Parallax + nav + side dots ── */
+var parallaxBg   = document.getElementById('parallax-bg');
+var SECTION_IDS  = ['landing', 'story', 'menu', 'bts', 'team'];
+/* Sections on a light background (dots and nav go dark) */
+var LIGHT_SECTIONS = { story: true, bts: true };
 
-const ITEMS = {
-  coffee: {
-    name: 'Coffee', icon: '☕',
-    stage1: { question: '[Stage 1 decision question for Coffee]', optionA: 'A: [Correct option]', optionB: 'B: [Wrong option]', wrongMsg: '[Explain why Stage 1 choice was wrong for Coffee]' },
-    stage2: { question: '[Stage 2 decision question for Coffee]', optionA: 'A: [Correct option]', optionB: 'B: [Wrong option]', wrongMsg: '[Explain why Stage 2 choice was wrong for Coffee]' },
-  },
-  yoghurt: {
-    name: 'Yoghurt Bowl', icon: '🥣',
-    stage1: { question: '[Stage 1 decision question for Yoghurt Bowl]', optionA: 'A: [Correct option]', optionB: 'B: [Wrong option]', wrongMsg: '[Explain why Stage 1 choice was wrong for Yoghurt Bowl]' },
-    stage2: { question: '[Stage 2 decision question for Yoghurt Bowl]', optionA: 'A: [Correct option]', optionB: 'B: [Wrong option]', wrongMsg: '[Explain why Stage 2 choice was wrong for Yoghurt Bowl]' },
-  },
-  matcha: {
-    name: 'Matcha', icon: '🍵',
-    stage1: { question: '[Stage 1 decision question for Matcha]', optionA: 'A: [Correct option]', optionB: 'B: [Wrong option]', wrongMsg: '[Explain why Stage 1 choice was wrong for Matcha]' },
-    stage2: { question: '[Stage 2 decision question for Matcha]', optionA: 'A: [Correct option]', optionB: 'B: [Wrong option]', wrongMsg: '[Explain why Stage 2 choice was wrong for Matcha]' },
-  },
-};
+window.addEventListener('scroll', function() {
+  var scrollY = window.scrollY;
 
-/* ── Overlay ── */
-function showOv(id) {
-  ['ov-stage','ov-correct','ov-wrong'].forEach(s => document.getElementById(s).classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  const panel = document.querySelector('.overlay-panel');
-  if (panel) panel.scrollTop = 0;
+  /* Nav scroll style */
+  var nav = document.getElementById('nav');
+  if (nav) nav.classList.toggle('scrolled', scrollY > 20);
+
+  /* Parallax */
+  if (parallaxBg) {
+    parallaxBg.style.transform = 'translateY(' + (scrollY * 0.35) + 'px)';
+  }
+
+  /* Find current section (nearest snap point above viewport center) */
+  var viewMid = scrollY + window.innerHeight * 0.5;
+  var cur = 'landing';
+  SECTION_IDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && el.offsetTop <= viewMid) cur = id;
+  });
+
+  /* Top nav active */
+  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  var activeBtn = document.querySelector('.nav-btn[href="#' + cur + '"]');
+  if (activeBtn) activeBtn.classList.add('active');
+
+  /* Side dots active */
+  document.querySelectorAll('.side-dot').forEach(function(d) { d.classList.remove('active'); });
+  var activeDot = document.querySelector('.side-dot[href="#' + cur + '"]');
+  if (activeDot) activeDot.classList.add('active');
+
+  /* Swap dot/nav colour for light sections */
+  document.body.classList.toggle('section-light', !!LIGHT_SECTIONS[cur]);
+
+}, { passive: true });
+
+/* ════════════════════════════════════════════
+   BTS CAROUSEL
+════════════════════════════════════════════ */
+
+var btsIndex  = 0;
+var btsSlides = [];
+
+(function initBts() {
+  btsSlides = Array.from(document.querySelectorAll('.bts-slide'));
+  if (!btsSlides.length) return;
+
+  /* Build dots */
+  var dotsEl = document.getElementById('bts-dots');
+  if (dotsEl) {
+    btsSlides.forEach(function(_, i) {
+      var d = document.createElement('button');
+      d.className   = 'bts-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      d.onclick     = function() { btsGoTo(i); };
+      dotsEl.appendChild(d);
+    });
+  }
+
+  /* Set total count */
+  var totalEl = document.getElementById('bts-total');
+  if (totalEl) totalEl.textContent = btsSlides.length;
+
+  /* Keyboard arrow support when BTS section is in view */
+  document.addEventListener('keydown', function(e) {
+    var bts = document.getElementById('bts');
+    if (!bts) return;
+    var rect = bts.getBoundingClientRect();
+    var inView = rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
+    if (!inView) return;
+    if (e.key === 'ArrowLeft')  btsNav(-1);
+    if (e.key === 'ArrowRight') btsNav(1);
+  });
+})();
+
+function btsNav(dir) {
+  btsGoTo((btsIndex + dir + btsSlides.length) % btsSlides.length);
 }
 
-function openGame(key) {
-  currentItem = key;
-  showStage(1);
-  document.getElementById('overlay').classList.remove('hidden');
+function btsGoTo(i) {
+  /* Pause any playing video on the departing slide */
+  var oldVideo = btsSlides[btsIndex].querySelector('video');
+  if (oldVideo) oldVideo.pause();
+
+  btsSlides[btsIndex].classList.remove('active');
+  btsIndex = i;
+  btsSlides[btsIndex].classList.add('active');
+
+  /* Update dots */
+  document.querySelectorAll('.bts-dot').forEach(function(d, idx) {
+    d.classList.toggle('active', idx === btsIndex);
+  });
+
+  /* Update counter */
+  var curEl = document.getElementById('bts-cur');
+  if (curEl) curEl.textContent = btsIndex + 1;
+}
+
+/* ════════════════════════════════════════════
+   FULLSCREEN EXPERIENCE ENGINE
+════════════════════════════════════════════ */
+
+var expItem    = null;
+var expNodeKey = null;
+
+/* Open the experience for a menu item */
+function openItem(key) {
+  expItem    = key;
+  expNodeKey = null;
+
+  document.getElementById('exp-fs').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+
+  goToExpNode('intro');
 }
 
-function closeGame() {
-  document.getElementById('overlay').classList.add('hidden');
+/* Close and clean up */
+function closeExperience() {
+  var video = document.getElementById('exp-video');
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+
+  hideExpOverlays();
+  document.getElementById('exp-fs').classList.add('hidden');
   document.body.style.overflow = '';
 }
 
-function restartItem() { openGame(currentItem); }
+/* Navigate to a story node */
+function goToExpNode(nodeKey) {
+  expNodeKey = nodeKey;
 
-/* ── Game flow ── */
-function showStage(num) {
-  currentStage = num;
-  const item = ITEMS[currentItem];
-  const data = num === 1 ? item.stage1 : item.stage2;
+  var story   = STORIES[expItem];
+  var node    = story.nodes[nodeKey];
+  var skipBtn = document.getElementById('exp-skip-btn');
 
-  $('stage-title', item.icon + '  ' + item.name + ' — Stage ' + num);
-  $('stage-vid',   '[ ' + item.name + ' — Stage ' + num + ' Video ]');
-  $('stage-q',     data.question);
-  $('btn-a',       data.optionA);
-  $('btn-b',       data.optionB);
+  hideExpOverlays();
 
-  buildProg('stage-prog', num);
-  $$('stage-hint',
-    (num === 1
-      ? '<p>Only one choice leads forward.<br>Watch the full video first.</p>'
-      : '<p>✓ Stage 1 — complete</p><p>● Stage 2 — in progress</p>') +
-    '<p class="hint-note">→ Correct: ' + (num === 1 ? 'Stage 2' : 'Outcome') + '<br>→ Wrong: End</p>'
-  );
-  showOv('ov-stage');
+  /* Nodes with no videoKey: keep current video visible and show decision immediately */
+  if (!node.videoKey) {
+    skipBtn.style.display = 'none';
+    setTimeout(onVideoEnded, 60);
+    return;
+  }
+
+  /* Outcome nodes: hide skip so the video plays through */
+  if (node.type === 'success' || node.type === 'fail') {
+    skipBtn.style.display = 'none';
+  } else {
+    skipBtn.style.display = 'block';
+  }
+
+  var url = (VIDEOS[expItem] && VIDEOS[expItem][node.videoKey]) || '';
+  loadExpVideo(url, node.title + ' \u2014 ' + story.name);
 }
 
-function choose(option) {
-  option === 'A'
-    ? (currentStage === 1 ? showStage(2) : showCorrect())
-    : showWrong(currentStage);
+/* Load (or placeholder) a video and wire up the ended handler */
+function loadExpVideo(url, label) {
+  var video = document.getElementById('exp-video');
+  var ph    = document.getElementById('exp-ph');
+
+  video.onended = onVideoEnded;
+
+  if (url) {
+    ph.classList.add('hidden');
+    video.style.display = 'block';
+    if (video.src !== url) {
+      video.src = url;
+      video.load();
+    }
+    video.play().catch(function() {});
+  } else {
+    /* No URL yet — show placeholder, "Continue" triggers onVideoEnded */
+    video.style.display = 'none';
+    ph.classList.remove('hidden');
+    document.getElementById('exp-ph-label').textContent = label;
+  }
 }
 
-function showCorrect() {
-  const item = ITEMS[currentItem];
-  $('correct-title', item.icon + '  ' + item.name + ' — Outcome');
-  $('correct-vid',   '[ ' + item.name + ' — Outcome Video (Success) ]');
-  buildProg('correct-prog', 3);
-  $$('correct-check', '✓ Stage 1<br>✓ Stage 2<br>✓ Outcome');
-  showOv('ov-correct');
+/* Called when video ends (or user skips / clicks Continue on placeholder) */
+function onVideoEnded() {
+  var story = STORIES[expItem];
+  var node  = story.nodes[expNodeKey];
+
+  if (node.type === 'intro') {
+    /* Intro node: advance automatically to next node */
+    goToExpNode(node.next);
+    return;
+  }
+
+  if (node.type === 'choice') {
+    showDecisionOverlay(node);
+    return;
+  }
+
+  if (node.type === 'success' || node.type === 'fail') {
+    showOutcomeOverlay(node);
+  }
 }
 
-function showWrong(stage) {
-  const item = ITEMS[currentItem];
-  $('wrong-tag', item.icon + '  ' + item.name + ' — Stage ' + stage + ' failure');
-  $('wrong-vid', '[ ' + item.name + ' — Wrong Outcome Video (Stage ' + stage + ') ]');
-  const btn = document.getElementById('wrong-retry');
-  btn.textContent = 'Try Stage ' + stage + ' Again';
-  btn.onclick = () => showStage(stage);
-  showOv('ov-wrong');
+/* Show the decision choices over the paused video */
+function showDecisionOverlay(node) {
+  var story = STORIES[expItem];
+  document.getElementById('exp-decision-label').textContent   = story.name + ' \u2014 ' + story.stages[node.stageIndex];
+  document.getElementById('exp-decision-question').textContent = node.question;
+
+  var row = document.getElementById('exp-choice-row');
+  row.innerHTML = node.options.map(function(opt) {
+    return '<button class="exp-choice-btn" onclick="pickExpChoice(\'' + opt.next + '\')">' + opt.label + '</button>';
+  }).join('');
+
+  document.getElementById('exp-decision').classList.remove('hidden');
+  document.getElementById('exp-skip-btn').style.display = 'none';
 }
 
-/* ── Progress bar ── */
-function buildProg(id, active) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const steps = ['Stage 1', 'Stage 2', 'Outcome'];
-  let t = '<div class="prog-track">';
-  steps.forEach((_, i) => {
-    const n = i + 1, cls = n < active ? 'done' : n === active ? 'on' : '';
-    t += `<div class="prog-dot ${cls}"></div>`;
-    if (i < 2) t += '<div class="prog-line"></div>';
-  });
-  t += '</div><div class="prog-labels">';
-  steps.forEach((lbl, i) => {
-    const n = i + 1, cls = n < active ? 'done' : n === active ? 'on' : '';
-    t += `<div class="prog-lbl ${cls}">${n < active ? '✓ ' : ''}${lbl}</div>`;
-  });
-  el.innerHTML = t + '</div>';
+/* User picks a choice */
+function pickExpChoice(nextNodeKey) {
+  document.getElementById('exp-decision').classList.add('hidden');
+  goToExpNode(nextNodeKey);
 }
 
-/* ── Nav highlight on scroll ── */
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('nav');
-  if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+/* Show outcome panel (success or fail) over the video */
+function showOutcomeOverlay(node) {
+  var badge = document.getElementById('exp-outcome-badge');
+  badge.innerHTML = node.badge;
+  badge.className = 'exp-oc-badge exp-oc-badge-' + node.badgeType;
 
-  const ids = ['menu','howitworks','bts','about'];
-  const y   = window.scrollY + 90;
-  let cur   = '';
-  ids.forEach(id => { const el = document.getElementById(id); if (el && el.offsetTop <= y) cur = id; });
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  if (cur) { const btn = document.querySelector(`.nav-btn[href="#${cur}"]`); if (btn) btn.classList.add('active'); }
-}, { passive: true });
+  document.getElementById('exp-outcome-title').textContent = node.title;
+  document.getElementById('exp-outcome-msg').textContent   = node.message;
 
-/* ── Helpers ── */
-function $(id, v)  { const e = document.getElementById(id); if (e) e.textContent = v; }
-function $$(id, v) { const e = document.getElementById(id); if (e) e.innerHTML   = v; }
+  var actions = document.getElementById('exp-oc-actions');
+  if (node.type === 'success') {
+    actions.innerHTML =
+      '<button class="btn-ghost" onclick="goToExpNode(\'intro\')">&#8592; Try Again</button>' +
+      '<button class="btn-primary" onclick="closeExperience()">Back to Menu</button>';
+  } else {
+    actions.innerHTML =
+      '<button class="btn-ghost" onclick="goToExpNode(\'' + node.retryNode + '\')">' + node.retryLabel + '</button>' +
+      '<button class="btn-primary" onclick="closeExperience()">Back to Menu</button>';
+  }
+
+  document.getElementById('exp-outcome').classList.remove('hidden');
+}
+
+/* Hide all overlays inside the experience */
+function hideExpOverlays() {
+  document.getElementById('exp-decision').classList.add('hidden');
+  document.getElementById('exp-outcome').classList.add('hidden');
+  document.getElementById('exp-skip-btn').style.display = 'block';
+}

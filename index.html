@@ -7,155 +7,233 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- TOP NAV -->
   <nav id="nav">
     <div class="nav-inner">
       <a class="nav-logo" href="#landing">The Brew Lab</a>
       <div class="nav-links">
+        <a class="nav-btn" href="#story">Story</a>
         <a class="nav-btn" href="#menu">Menu</a>
-        <a class="nav-btn" href="#howitworks">How It Works</a>
         <a class="nav-btn" href="#bts">BTS</a>
-        <a class="nav-btn" href="#about">About</a>
+        <a class="nav-btn" href="#team">Team</a>
       </div>
     </div>
   </nav>
 
+  <!-- SIDE DOTS NAV -->
+  <nav id="side-nav" aria-label="Section navigation">
+    <a class="side-dot active" href="#landing"  data-label="Intro"  title="Intro"></a>
+    <a class="side-dot"        href="#story"    data-label="Story"  title="Story"></a>
+    <a class="side-dot"        href="#menu"     data-label="Menu"   title="Menu"></a>
+    <a class="side-dot"        href="#bts"      data-label="BTS"    title="BTS"></a>
+    <a class="side-dot"        href="#team"     data-label="Team"   title="Team"></a>
+  </nav>
+
   <!-- ══════════════ LANDING ══════════════ -->
-  <section id="landing">
-    <div class="landing-inner">
-      <p class="landing-eyebrow">An Interactive Barista Experience</p>
+  <section id="landing" class="fp-section fp-dark">
+    <div class="landing-parallax" id="parallax-bg"></div>
+    <div class="landing-veil"></div>
+    <div class="landing-content">
+      <span class="landing-eyebrow">An Interactive Barista Experience</span>
       <h1 class="landing-title">The Brew<br><em>Lab</em></h1>
-      <div class="cafe-photo">
-        <div class="cafe-photo-label">[Cafe Photo]</div>
+      <p class="landing-desc">Step behind the counter. Every decision shapes the outcome.</p>
+      <a href="#menu" class="btn-primary btn-hero">Start Your Shift <span class="btn-arrow">&#8594;</span></a>
+    </div>
+    <a href="#story" class="scroll-cue" aria-label="Scroll down">&#8595;</a>
+  </section>
+
+  <!-- ══════════════ STORY ══════════════ -->
+  <section id="story" class="fp-section fp-light">
+    <div class="fp-inner story-layout">
+      <div class="story-left">
+        <span class="section-tag">The Concept</span>
+        <h2 class="story-headline">Where Your<br>Choices<br>Tell the Story</h2>
+        <p class="story-lead">The Brew Lab puts you behind the counter as the barista on duty. Every decision you make determines whether the preparation succeeds &#8212; or fails spectacularly. Process matters. This experience proves it.</p>
       </div>
-      <a href="#menu" class="btn-primary">Start Your Shift <span class="btn-arrow">→</span></a>
-      <p class="landing-sub">Step behind the counter. Make the right calls at every stage.</p>
+      <div class="story-right">
+        <div class="story-pillar">
+          <span class="pillar-num">01</span>
+          <h3>Choose a Menu Item</h3>
+          <p>Coffee, Yoghurt Bowl, or Matcha. Each carries its own preparation logic and branching path of decisions.</p>
+        </div>
+        <div class="story-pillar">
+          <span class="pillar-num">02</span>
+          <h3>Watch &amp; Decide</h3>
+          <p>Each stage plays a short video. Watch carefully &#8212; the details of the preparation are your only clues. Decisions appear directly over the footage.</p>
+        </div>
+        <div class="story-pillar">
+          <span class="pillar-num">03</span>
+          <h3>Face the Outcome</h3>
+          <p>Make the right calls and reach a perfect result. Make the wrong call and the preparation ends immediately. The quality is yours to own.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ══════════════ MENU ══════════════ -->
-  <section id="menu">
-    <div class="section-inner">
-      <div class="section-header">
-        <span class="section-tag">Order Up</span>
-        <h2>Choose Your Order</h2>
-        <p>Select a menu item to begin. Two decision stages — only one path leads to a perfect result.</p>
+  <section id="menu" class="fp-section fp-dark">
+    <div class="fp-inner menu-layout">
+      <div class="menu-header">
+        <span class="section-tag section-tag-light">The shift has started</span>
+        <h2 class="menu-title">Three orders are waiting<br>on the counter.</h2>
+        <p class="menu-sub">You are the barista on duty. Choose one order to begin &#8212; a video will guide each stage of preparation, and every decision you make determines the result.</p>
       </div>
-      <div class="menu-grid">
+      <div class="orders-row">
 
-        <div class="menu-card" onclick="openGame('coffee')">
-          <div class="menu-card-top">
-            <div class="menu-emoji">☕</div>
-            <div class="menu-number">01</div>
+        <div class="order-card" onclick="openItem('coffee')">
+          <div class="order-card-glow"></div>
+          <span class="order-num-bg">01</span>
+          <div class="order-icon-wrap">
+            <span class="order-icon">&#9749;</span>
+            <div class="order-play-ring"><span class="order-play-arrow">&#9654;</span></div>
           </div>
-          <div class="menu-card-body">
-            <h3>Coffee</h3>
-            <p>Espresso-based preparation</p>
+          <div class="order-body">
+            <span class="order-badge">Order 01</span>
+            <h3 class="order-name">Coffee</h3>
+            <p class="order-type">Espresso-based preparation</p>
           </div>
-          <div class="menu-card-footer">
-            <span class="menu-cta">Select &rarr;</span>
-          </div>
-        </div>
-
-        <div class="menu-card" onclick="openGame('yoghurt')">
-          <div class="menu-card-top">
-            <div class="menu-emoji">🥣</div>
-            <div class="menu-number">02</div>
-          </div>
-          <div class="menu-card-body">
-            <h3>Yoghurt Bowl</h3>
-            <p>Assembly-based preparation</p>
-          </div>
-          <div class="menu-card-footer">
-            <span class="menu-cta">Select &rarr;</span>
+          <div class="order-cta">
+            <span class="order-cta-icon">&#9654;</span>
+            <span>Begin Preparation</span>
           </div>
         </div>
 
-        <div class="menu-card" onclick="openGame('matcha')">
-          <div class="menu-card-top">
-            <div class="menu-emoji">🍵</div>
-            <div class="menu-number">03</div>
+        <div class="order-card" onclick="openItem('yoghurt')">
+          <div class="order-card-glow"></div>
+          <span class="order-num-bg">02</span>
+          <div class="order-icon-wrap">
+            <span class="order-icon">&#x1F963;</span>
+            <div class="order-play-ring"><span class="order-play-arrow">&#9654;</span></div>
           </div>
-          <div class="menu-card-body">
-            <h3>Matcha</h3>
-            <p>Blend-based preparation</p>
+          <div class="order-body">
+            <span class="order-badge">Order 02</span>
+            <h3 class="order-name">Yoghurt Bowl</h3>
+            <p class="order-type">Assembly-based preparation</p>
           </div>
-          <div class="menu-card-footer">
-            <span class="menu-cta">Select &rarr;</span>
+          <div class="order-cta">
+            <span class="order-cta-icon">&#9654;</span>
+            <span>Begin Preparation</span>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
+        <div class="order-card" onclick="openItem('matcha')">
+          <div class="order-card-glow"></div>
+          <span class="order-num-bg">03</span>
+          <div class="order-icon-wrap">
+            <span class="order-icon">&#x1F375;</span>
+            <div class="order-play-ring"><span class="order-play-arrow">&#9654;</span></div>
+          </div>
+          <div class="order-body">
+            <span class="order-badge">Order 03</span>
+            <h3 class="order-name">Matcha</h3>
+            <p class="order-type">Blend-based preparation</p>
+          </div>
+          <div class="order-cta">
+            <span class="order-cta-icon">&#9654;</span>
+            <span>Begin Preparation</span>
+          </div>
+        </div>
 
-  <!-- ══════════════ HOW IT WORKS ══════════════ -->
-  <section id="howitworks" class="section-dark">
-    <div class="section-inner">
-      <div class="section-header section-header-light">
-        <span class="section-tag section-tag-light">The Process</span>
-        <h2>How It Works</h2>
-        <p>A quick guide before you step behind the counter</p>
-      </div>
-      <div class="hiw-grid">
-        <div class="hiw-card">
-          <div class="hiw-num">01</div>
-          <h3>Choose a Menu Item</h3>
-          <p>Pick one of three items — Coffee, Yoghurt Bowl, or Matcha. Each carries its own preparation logic.</p>
-        </div>
-        <div class="hiw-connector">→</div>
-        <div class="hiw-card">
-          <div class="hiw-num">02</div>
-          <h3>Watch the Stage Video</h3>
-          <p>Each stage plays a short video. Watch carefully — the details are your only clues.</p>
-        </div>
-        <div class="hiw-connector">→</div>
-        <div class="hiw-card">
-          <div class="hiw-num">03</div>
-          <h3>Make Your Decision</h3>
-          <p>Two options appear. Only one is correct. Choose wrong and the preparation ends immediately.</p>
-        </div>
-        <div class="hiw-connector">→</div>
-        <div class="hiw-card hiw-card-accent">
-          <div class="hiw-num">04</div>
-          <h3>Reach the Outcome</h3>
-          <p>Nail both decisions and complete the preparation. The core message: <strong>process matters.</strong></p>
-        </div>
-      </div>
-      <div class="hiw-cta">
-        <a href="#menu" class="btn-primary btn-light">Start Preparing <span class="btn-arrow">→</span></a>
       </div>
     </div>
   </section>
 
   <!-- ══════════════ BTS ══════════════ -->
-  <section id="bts">
-    <div class="section-inner">
-      <div class="section-header">
+  <section id="bts" class="fp-section fp-light">
+    <div class="fp-inner bts-layout">
+
+      <div class="bts-header">
         <span class="section-tag">Behind the Scenes</span>
         <h2>Making of The Brew Lab</h2>
         <p>A look at the process behind the project</p>
       </div>
-      <div class="bts-grid">
-        <div class="bts-photo bts-large"><span class="ph-lbl">[BTS Photo 1]</span></div>
-        <div class="bts-photo"><span class="ph-lbl">[BTS Photo 2]</span></div>
-        <div class="bts-photo"><span class="ph-lbl">[BTS Photo 3]</span></div>
-        <div class="bts-photo"><span class="ph-lbl">[BTS Photo 4]</span></div>
-        <div class="bts-photo bts-large bts-right"><span class="ph-lbl">[BTS Photo 5]</span></div>
-        <div class="bts-photo bts-right"><span class="ph-lbl">[BTS Photo 6]</span></div>
+
+      <div class="bts-stage">
+
+        <button class="bts-arrow bts-prev" onclick="btsNav(-1)" aria-label="Previous">&#8592;</button>
+
+        <div class="bts-viewport" id="bts-viewport">
+
+          <!-- ── Slide 1 ── Replace inner content with <img src="..."> or <video src="..." controls> -->
+          <div class="bts-slide active">
+            <div class="bts-ph">
+              <span class="bts-ph-num">01</span>
+              <p>[BTS Photo / Video 1]</p>
+              <p class="bts-ph-hint">Replace with &lt;img src="..."&gt; or &lt;video src="..." controls&gt;</p>
+            </div>
+          </div>
+
+          <!-- ── Slide 2 ── -->
+          <div class="bts-slide">
+            <div class="bts-ph">
+              <span class="bts-ph-num">02</span>
+              <p>[BTS Photo / Video 2]</p>
+              <p class="bts-ph-hint">Replace with &lt;img src="..."&gt; or &lt;video src="..." controls&gt;</p>
+            </div>
+          </div>
+
+          <!-- ── Slide 3 ── -->
+          <div class="bts-slide">
+            <div class="bts-ph">
+              <span class="bts-ph-num">03</span>
+              <p>[BTS Photo / Video 3]</p>
+              <p class="bts-ph-hint">Replace with &lt;img src="..."&gt; or &lt;video src="..." controls&gt;</p>
+            </div>
+          </div>
+
+          <!-- ── Slide 4 ── -->
+          <div class="bts-slide">
+            <div class="bts-ph">
+              <span class="bts-ph-num">04</span>
+              <p>[BTS Photo / Video 4]</p>
+              <p class="bts-ph-hint">Replace with &lt;img src="..."&gt; or &lt;video src="..." controls&gt;</p>
+            </div>
+          </div>
+
+          <!-- ── Slide 5 ── -->
+          <div class="bts-slide">
+            <div class="bts-ph">
+              <span class="bts-ph-num">05</span>
+              <p>[BTS Photo / Video 5]</p>
+              <p class="bts-ph-hint">Replace with &lt;img src="..."&gt; or &lt;video src="..." controls&gt;</p>
+            </div>
+          </div>
+
+          <!-- ── Slide 6 ── -->
+          <div class="bts-slide">
+            <div class="bts-ph">
+              <span class="bts-ph-num">06</span>
+              <p>[BTS Photo / Video 6]</p>
+              <p class="bts-ph-hint">Replace with &lt;img src="..."&gt; or &lt;video src="..." controls&gt;</p>
+            </div>
+          </div>
+
+        </div><!-- /bts-viewport -->
+
+        <button class="bts-arrow bts-next" onclick="btsNav(1)" aria-label="Next">&#8594;</button>
+
+      </div><!-- /bts-stage -->
+
+      <div class="bts-footer">
+        <div class="bts-dots" id="bts-dots"></div>
+        <span class="bts-counter">
+          <span id="bts-cur">1</span>&thinsp;/&thinsp;<span id="bts-total">6</span>
+        </span>
       </div>
+
     </div>
   </section>
 
-  <!-- ══════════════ ABOUT ══════════════ -->
-  <section id="about" class="section-dark">
-    <div class="section-inner">
-      <div class="section-header section-header-light">
-        <span class="section-tag section-tag-light">The Team</span>
-        <h2>About the Team</h2>
+  <!-- ══════════════ TEAM ══════════════ -->
+  <section id="team" class="fp-section fp-dark">
+    <div class="fp-inner team-layout">
+      <div class="team-header">
+        <span class="section-tag section-tag-light">The People</span>
+        <h2>The Team</h2>
         <p>The people behind The Brew Lab</p>
       </div>
       <div class="team-grid">
@@ -166,7 +244,7 @@
           <div class="team-body">
             <h3>Member 1</h3>
             <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+            <p class="team-desc">[A brief overview of this member's contribution to the project.]</p>
           </div>
         </div>
         <div class="team-card">
@@ -176,7 +254,7 @@
           <div class="team-body">
             <h3>Member 2</h3>
             <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+            <p class="team-desc">[A brief overview of this member's contribution to the project.]</p>
           </div>
         </div>
         <div class="team-card">
@@ -186,7 +264,7 @@
           <div class="team-body">
             <h3>Member 3</h3>
             <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+            <p class="team-desc">[A brief overview of this member's contribution to the project.]</p>
           </div>
         </div>
         <div class="team-card">
@@ -196,85 +274,47 @@
           <div class="team-body">
             <h3>Member 4</h3>
             <p class="team-role">[Role / Title]</p>
-            <p class="team-desc">[Description text goes here. A brief overview of this member's contribution to the project.]</p>
+            <p class="team-desc">[A brief overview of this member's contribution to the project.]</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════ GAME OVERLAY ══════════════ -->
-  <div id="overlay" class="overlay hidden">
-    <div class="overlay-panel">
-
-      <button class="overlay-close" onclick="closeGame()">✕</button>
-
-      <!-- STAGE -->
-      <div id="ov-stage" class="ov-screen">
-        <div class="ov-layout">
-          <div class="ov-main">
-            <h2 class="ov-title" id="stage-title"></h2>
-            <div class="video-box">
-              <div class="vid-btn">▶</div>
-              <p class="vid-lbl" id="stage-vid"></p>
-            </div>
-            <div class="decision-bar">
-              <span class="dec-icon">⚠</span>
-              <span id="stage-q"></span>
-            </div>
-            <div class="choice-row">
-              <button class="btn-choice" id="btn-a" onclick="choose('A')"></button>
-              <button class="btn-choice" id="btn-b" onclick="choose('B')"></button>
-            </div>
-          </div>
-          <aside class="ov-sidebar">
-            <div id="stage-prog" class="prog-card"></div>
-            <div id="stage-hint" class="hint-card"></div>
-          </aside>
-        </div>
+  <!-- ══════════════ FULLSCREEN EXPERIENCE ══════════════ -->
+  <div id="exp-fs" class="exp-fs hidden">
+    <video id="exp-video" class="exp-video-fs" playsinline></video>
+    <div id="exp-ph" class="exp-ph hidden">
+      <div class="exp-ph-inner">
+        <div class="exp-ph-icon">&#9654;</div>
+        <p id="exp-ph-label">Video</p>
+        <p class="exp-ph-note">Add Cloudinary URL to prepare/videos.js to show video here</p>
+        <button class="exp-ph-continue" onclick="onVideoEnded()">Continue &#8594;</button>
       </div>
-
-      <!-- CORRECT -->
-      <div id="ov-correct" class="ov-screen hidden">
-        <div class="ov-layout">
-          <div class="ov-main">
-            <h2 class="ov-title" id="correct-title"></h2>
-            <div class="video-box">
-              <div class="vid-btn">▶</div>
-              <p class="vid-lbl" id="correct-vid"></p>
-            </div>
-            <div class="success-bar">✓ &nbsp;Perfect result! You followed the correct process at every stage.</div>
-            <div class="choice-row">
-              <button class="btn-ghost" onclick="restartItem()">← Try Again</button>
-              <button class="btn-primary" onclick="closeGame()">Back to Menu</button>
-            </div>
-          </div>
-          <aside class="ov-sidebar">
-            <div id="correct-prog" class="prog-card"></div>
-            <div id="correct-check" class="check-card"></div>
-          </aside>
-        </div>
+    </div>
+    <button class="exp-close-btn" onclick="closeExperience()" title="Exit">&#10005;</button>
+    <button class="exp-skip-btn" id="exp-skip-btn" onclick="onVideoEnded()">Skip &#8594;</button>
+    <div id="exp-decision" class="exp-decision hidden">
+      <div class="exp-decision-gradient"></div>
+      <div class="exp-decision-content">
+        <p class="exp-decision-label" id="exp-decision-label"></p>
+        <p class="exp-decision-question" id="exp-decision-question"></p>
+        <div class="exp-choice-row" id="exp-choice-row"></div>
       </div>
-
-      <!-- WRONG -->
-      <div id="ov-wrong" class="ov-screen hidden">
-        <div class="wrong-center">
-          <div class="wrong-pill" id="wrong-tag"></div>
-          <h2 class="wrong-title">Incorrect Choice</h2>
-          <div class="video-box video-wide">
-            <div class="vid-btn">▶</div>
-            <p class="vid-lbl" id="wrong-vid"></p>
-          </div>
-          <div class="wrong-row">
-            <button class="btn-ghost" id="wrong-retry"></button>
-            <button class="btn-primary" onclick="closeGame()">Back to Menu</button>
-          </div>
-        </div>
+    </div>
+    <div id="exp-outcome" class="exp-outcome hidden">
+      <div class="exp-outcome-bg"></div>
+      <div class="exp-outcome-content">
+        <div id="exp-outcome-badge" class="exp-oc-badge"></div>
+        <h2 id="exp-outcome-title" class="exp-oc-title"></h2>
+        <p  id="exp-outcome-msg"   class="exp-oc-msg"></p>
+        <div class="exp-oc-actions" id="exp-oc-actions"></div>
       </div>
-
     </div>
   </div>
 
+  <script src="prepare/videos.js"></script>
+  <script src="prepare/stories.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
