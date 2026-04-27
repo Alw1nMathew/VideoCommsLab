@@ -107,31 +107,31 @@ const STORIES = {
     },
     nodes: {
 
-      /* Plays start video, then advances to stage 1 choice */
+      /* VideoStart plays → advances to step1 choice */
       intro: {
         type:       'intro',
         stageIndex: 0,
         title:      'Welcome to The Brew Lab',
         videoKey:   'intro',
-        text:       'The counter is clean. Greek yoghurt, granola, fresh fruit, and honey are laid out. A customer is waiting for something light but considered. The quality is entirely in how you build it.',
+        text:       'The counter is clean. Greek yoghurt, granola, fresh fruit, and honey are laid out. A customer is waiting for something light but considered.',
         next:       'step1'
       },
 
-      /* Stage 1 — plays step1 video, then shows choice over frozen frame */
+      /* Stage 1 choice — shown over frozen start frame */
       step1: {
         type:       'choice',
         stageIndex: 0,
         title:      'Stage 1 &#8212; Ingredients',
         videoKey:   'step1_correct',
-        text:       'Every great yoghurt bowl begins with its base. The choice here determines the texture and structure of everything that follows.',
+        text:       'Every great yoghurt bowl begins with its base.',
         question:   'What do you add as the topping for Stage 1?',
         options: [
-          { label: 'Oats &#8212; wholesome and textured',                        next: 'step2_video' },
-          { label: 'Chopped brussels sprouts &#8212; interesting choice...',     next: 'fail1'       }
+          { label: 'Oats &#8212; wholesome and textured',                    next: 'step2_video' },
+          { label: 'Chopped brussels sprouts &#8212; interesting choice...', next: 'fail1'       }
         ]
       },
 
-      /* Correct stage 1 chosen — plays step2 video, then advances to stage 2 choice */
+      /* Correct Stage 1 — plays step2 video then advances to Stage 2 choice */
       step2_video: {
         type:       'intro',
         stageIndex: 1,
@@ -141,7 +141,7 @@ const STORIES = {
         next:       'step2'
       },
 
-      /* Stage 2 — no new video, choice shown over frozen step2_video frame */
+      /* Stage 2 choice — shown over frozen step2_video frame */
       step2: {
         type:       'choice',
         stageIndex: 1,
@@ -150,8 +150,8 @@ const STORIES = {
         text:       'The base is set. Now the finishing touch.',
         question:   'What do you add to complete the bowl?',
         options: [
-          { label: 'Fruit slices &#8212; fresh, vibrant, balanced',              next: 'success' },
-          { label: 'Salami slices &#8212; an... unconventional choice',          next: 'fail2'   }
+          { label: 'Fruit slices &#8212; fresh, vibrant, balanced',     next: 'success' },
+          { label: 'Salami slices &#8212; an unconventional choice...', next: 'fail2'   }
         ]
       },
 
@@ -179,7 +179,6 @@ const STORIES = {
         retryLabel: '&#8592; Try Stage 2 Again'
       },
 
-      /* Final stage — plays success video */
       success: {
         type:       'success',
         stageIndex: 2,
@@ -205,36 +204,47 @@ const STORIES = {
     },
     nodes: {
 
+      /* VideoStart plays → advances to step1 choice */
       intro: {
         type:       'intro',
         stageIndex: 0,
         title:      'Welcome to The Brew Lab',
         videoKey:   'intro',
-        text:       'The matcha tin is open. The whisk is ready. A bamboo scoop, a small bowl, and the customer\'s expectation. Matcha is unforgiving — every variable matters from the first step.',
+        text:       'The matcha tin is open. The whisk is ready. Matcha is unforgiving — every variable matters from the first step.',
         next:       'step1'
       },
 
-      /* Stage 1 — plays step1_correct video, then shows choice */
+      /* Stage 1 choice — shown over frozen VideoStart frame */
       step1: {
         type:       'choice',
         stageIndex: 0,
         title:      'Stage 1 &#8212; Ingredients',
-        videoKey:   'step1_correct',
-        text:       'Water temperature is the most critical variable in matcha preparation. Get it wrong and there is no recovering it.',
+        videoKey:   null,
+        text:       'Water temperature is the most critical variable in matcha preparation.',
         question:   'What temperature water do you use to whisk the matcha powder?',
         options: [
-          { label: '75&#176;C &#8212; below boiling, preserves the natural sweetness', next: 'step2' },
-          { label: '100&#176;C &#8212; boiling water, fully dissolves the powder',     next: 'fail1' }
+          { label: '75&#176;C &#8212; below boiling, preserves the natural sweetness', next: 'step1_correct_video' },
+          { label: '100&#176;C &#8212; boiling water, fully dissolves the powder',     next: 'fail1'              }
         ]
       },
 
-      /* Stage 2 — no new video, choice shown over frozen frame */
+      /* Correct Stage 1 — plays Stage1Correct video, then advances to Stage 2 choice */
+      step1_correct_video: {
+        type:       'intro',
+        stageIndex: 1,
+        title:      'Perfect Temperature',
+        videoKey:   'step1_correct',
+        text:       '75°C — the catechins are preserved. The matcha is whisking beautifully.',
+        next:       'step2'
+      },
+
+      /* Stage 2 choice — shown over frozen Stage1Correct frame */
       step2: {
         type:       'choice',
         stageIndex: 1,
         title:      'Stage 2 &#8212; Preparation',
         videoKey:   null,
-        text:       'The matcha is whisked into a smooth, frothy concentrate. Now comes the pour.',
+        text:       'The matcha concentrate is ready. Now comes the pour.',
         question:   'How do you bring the matcha and milk together?',
         options: [
           { label: 'Pour cold oat milk over ice, then layer the matcha shot over it', next: 'success' },
