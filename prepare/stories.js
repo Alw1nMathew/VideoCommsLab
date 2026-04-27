@@ -1,16 +1,5 @@
 /**
  * THE BREW LAB — Branching Story Data
- * ======================================
- * Each item has a set of nodes that drive the interactive narrative.
- *
- * Node types:
- *   'intro'   — introduction, plays on load, "Begin" advances to next node
- *   'choice'  — shows the video, question, and two option buttons
- *   'fail'    — wrong-path outcome; offers retry or back-to-menu
- *   'success' — correct final outcome
- *
- * videoKey maps to a key in VIDEOS[item] inside videos.js.
- * stageIndex (0, 1, 2) drives the progress indicator.
  */
 
 const STORIES = {
@@ -27,7 +16,6 @@ const STORIES = {
     },
     nodes: {
 
-      /* Intro clip plays, then auto-advances to spoon decision */
       intro: {
         type:       'intro',
         stageIndex: 0,
@@ -37,7 +25,6 @@ const STORIES = {
         next:       'step1'
       },
 
-      /* Decision shown over frozen intro frame — no new video */
       step1: {
         type:       'choice',
         stageIndex: 0,
@@ -46,12 +33,11 @@ const STORIES = {
         text:       'The portafilter is ready. How many spoons of coffee do you add?',
         question:   'How many spoons of coffee do you add to the portafilter?',
         options: [
-          { label: 'One spoon &#8212; precise and measured',       next: 'step2_video' },
-          { label: 'Two spoons &#8212; more flavour, surely',      next: 'fail1'       }
+          { label: 'One spoon &#8212; precise and measured',  next: 'step2_video' },
+          { label: 'Two spoons &#8212; more flavour, surely', next: 'fail1'       }
         ]
       },
 
-      /* One spoon selected &#8212; plays "Just Enough Coffee" clip, then advances to liquid decision */
       step2_video: {
         type:       'intro',
         stageIndex: 1,
@@ -61,7 +47,6 @@ const STORIES = {
         next:       'step2'
       },
 
-      /* Decision shown over frozen "Just Enough" frame &#8212; no new video */
       step2: {
         type:       'choice',
         stageIndex: 1,
@@ -70,12 +55,11 @@ const STORIES = {
         text:       'The espresso shot is pulled. Now for the finish.',
         question:   'What do you add to complete the drink?',
         options: [
-          { label: 'Add milk &#8212; steamed, smooth, velvety',   next: 'outcome_milk'  },
-          { label: 'Add water &#8212; for a longer drink',         next: 'outcome_water' }
+          { label: 'Add milk &#8212; steamed, smooth, velvety', next: 'outcome_milk'  },
+          { label: 'Add water &#8212; for a longer drink',       next: 'outcome_water' }
         ]
       },
 
-      /* Two spoons &#8212; humorous fail, retry goes back to step1 (not intro) */
       fail1: {
         type:       'fail',
         stageIndex: 0,
@@ -88,7 +72,6 @@ const STORIES = {
         retryLabel: '&#8592; Try the spoons again'
       },
 
-      /* Milk outcome &#8212; success */
       outcome_milk: {
         type:       'success',
         stageIndex: 2,
@@ -99,7 +82,6 @@ const STORIES = {
         message:    'One precise spoon, a clean espresso shot, and perfectly steamed milk. The customer takes a sip and nods slowly. That\'s the nod. Every decision at every stage was correct. Process matters.'
       },
 
-      /* Water outcome &#8212; also success, different message */
       outcome_water: {
         type:       'success',
         stageIndex: 2,
@@ -125,6 +107,7 @@ const STORIES = {
     },
     nodes: {
 
+      /* Plays start video, then advances to stage 1 choice */
       intro: {
         type:       'intro',
         stageIndex: 0,
@@ -134,40 +117,52 @@ const STORIES = {
         next:       'step1'
       },
 
+      /* Stage 1 — plays step1 video, then shows choice over frozen frame */
       step1: {
         type:       'choice',
         stageIndex: 0,
-        title:      'Stage 1 — Ingredients',
+        title:      'Stage 1 &#8212; Ingredients',
         videoKey:   'step1_correct',
-        text:       'Every great yoghurt bowl begins with its base. The choice here determines the texture and structure of everything that follows. Not all yoghurts are built the same.',
-        question:   'What do you use as the base of the bowl?',
+        text:       'Every great yoghurt bowl begins with its base. The choice here determines the texture and structure of everything that follows.',
+        question:   'What do you add as the topping for Stage 1?',
         options: [
-          { label: 'Greek yoghurt — thick, creamy, and protein-rich',   next: 'step2' },
-          { label: 'Regular yoghurt — thinner and easier to pour',      next: 'fail1' }
+          { label: 'Oats &#8212; wholesome and textured',                        next: 'step2_video' },
+          { label: 'Chopped brussels sprouts &#8212; interesting choice...',     next: 'fail1'       }
         ]
       },
 
+      /* Correct stage 1 chosen — plays step2 video, then advances to stage 2 choice */
+      step2_video: {
+        type:       'intro',
+        stageIndex: 1,
+        title:      'Good Choice',
+        videoKey:   'step2_video',
+        text:       'Oats added. The bowl is taking shape nicely.',
+        next:       'step2'
+      },
+
+      /* Stage 2 — no new video, choice shown over frozen step2_video frame */
       step2: {
         type:       'choice',
         stageIndex: 1,
-        title:      'Stage 2 — Assembly',
-        videoKey:   'step1_correct',
-        text:       'The base is set. Now the layering begins. Assembly order determines both the look and the experience of eating. One approach keeps each element at its best. The other does not.',
-        question:   'How do you add the granola?',
+        title:      'Stage 2 &#8212; Assembly',
+        videoKey:   null,
+        text:       'The base is set. Now the finishing touch.',
+        question:   'What do you add to complete the bowl?',
         options: [
-          { label: 'Sprinkle on top at the very end — stays crunchy',     next: 'success' },
-          { label: 'Mix it into the yoghurt first — ensures coverage',    next: 'fail2'   }
+          { label: 'Fruit slices &#8212; fresh, vibrant, balanced',              next: 'success' },
+          { label: 'Salami slices &#8212; an... unconventional choice',          next: 'fail2'   }
         ]
       },
 
       fail1: {
         type:       'fail',
         stageIndex: 0,
-        title:      'Watery Base',
+        title:      'Nasty Choice',
         videoKey:   'step1_wrong',
         badge:      '&#x2717; Stage 1 Failed',
         badgeType:  'fail',
-        message:    'The thin yoghurt cannot hold the toppings. Within seconds everything sinks and separates into a watery mess at the bottom of the bowl. The customer asks if this is supposed to be a smoothie.',
+        message:    'Chopped brussels sprouts? The customer witnesses this and asks you to dump the entire bowl. Some ingredients belong in a stir-fry. Not here.',
         retryNode:  'step1',
         retryLabel: '&#8592; Try Stage 1 Again'
       },
@@ -175,15 +170,16 @@ const STORIES = {
       fail2: {
         type:       'fail',
         stageIndex: 1,
-        title:      'Soggy Granola',
+        title:      'Nasty Choice',
         videoKey:   'step2_wrong',
         badge:      '&#x2717; Stage 2 Failed',
         badgeType:  'fail',
-        message:    'Granola mixed directly into yoghurt absorbs moisture instantly. By the time the bowl reaches the customer it has become a thick paste. The texture is gone. Assembly order is not a suggestion — it is the craft.',
+        message:    'Salami slices? The customer witnesses this and asks you to dump the entire bowl. Some flavour combinations are worth exploring. This is not one of them.',
         retryNode:  'step2',
         retryLabel: '&#8592; Try Stage 2 Again'
       },
 
+      /* Final stage — plays success video */
       success: {
         type:       'success',
         stageIndex: 2,
@@ -191,7 +187,7 @@ const STORIES = {
         videoKey:   'step2_correct',
         badge:      '&#x2713; Preparation Complete',
         badgeType:  'success',
-        message:    'A beautifully assembled yoghurt bowl. Creamy base, vibrant toppings, granola perfectly crunchy on top. Every layer considered, every decision correct. This is what care looks like in a bowl.'
+        message:    'A beautifully assembled yoghurt bowl. Every layer considered, every decision correct. This is what care looks like in a bowl.'
       }
 
     }
@@ -218,29 +214,31 @@ const STORIES = {
         next:       'step1'
       },
 
+      /* Stage 1 — plays step1_correct video, then shows choice */
       step1: {
         type:       'choice',
         stageIndex: 0,
-        title:      'Stage 1 — Ingredients',
+        title:      'Stage 1 &#8212; Ingredients',
         videoKey:   'step1_correct',
-        text:       'Water temperature is the most critical variable in matcha preparation. Get it wrong and there is no recovering it. The catechins that give matcha its characteristic flavour are extremely heat-sensitive.',
+        text:       'Water temperature is the most critical variable in matcha preparation. Get it wrong and there is no recovering it.',
         question:   'What temperature water do you use to whisk the matcha powder?',
         options: [
-          { label: '75&#176;C — below boiling, preserves the natural sweetness',     next: 'step2' },
-          { label: '100&#176;C — boiling water, fully dissolves the powder',         next: 'fail1' }
+          { label: '75&#176;C &#8212; below boiling, preserves the natural sweetness', next: 'step2' },
+          { label: '100&#176;C &#8212; boiling water, fully dissolves the powder',     next: 'fail1' }
         ]
       },
 
+      /* Stage 2 — no new video, choice shown over frozen frame */
       step2: {
         type:       'choice',
         stageIndex: 1,
-        title:      'Stage 2 — Preparation',
-        videoKey:   'step1_correct',
-        text:       'The matcha is whisked into a smooth, frothy concentrate. Now comes the pour. The method of combining the matcha with the milk determines whether you get a silky layered drink or a split, clumped mess.',
+        title:      'Stage 2 &#8212; Preparation',
+        videoKey:   null,
+        text:       'The matcha is whisked into a smooth, frothy concentrate. Now comes the pour.',
         question:   'How do you bring the matcha and milk together?',
         options: [
-          { label: 'Pour cold oat milk over ice, then layer the matcha shot over it',   next: 'success' },
-          { label: 'Add the matcha concentrate directly into hot milk in the cup',       next: 'fail2'   }
+          { label: 'Pour cold oat milk over ice, then layer the matcha shot over it', next: 'success' },
+          { label: 'Add the matcha concentrate directly into hot milk in the cup',     next: 'fail2'   }
         ]
       },
 
@@ -251,7 +249,7 @@ const STORIES = {
         videoKey:   'step1_wrong',
         badge:      '&#x2717; Stage 1 Failed',
         badgeType:  'fail',
-        message:    'Boiling water scorches the delicate catechins in matcha, turning what should be sweet and grassy into something acrid and unpleasant. The colour darkens and the aroma disappears. Temperature is not a suggestion — it is the preparation.',
+        message:    'Boiling water scorches the delicate catechins in matcha, turning what should be sweet and grassy into something acrid and unpleasant. Temperature is not a suggestion — it is the preparation.',
         retryNode:  'step1',
         retryLabel: '&#8592; Try Stage 1 Again'
       },
@@ -263,7 +261,7 @@ const STORIES = {
         videoKey:   'step2_wrong',
         badge:      '&#x2717; Stage 2 Failed',
         badgeType:  'fail',
-        message:    'Adding matcha concentrate directly into hot milk causes it to clump and separate on contact. The drink is streaky and inconsistent. The customer can taste the instability. Method is everything.',
+        message:    'Adding matcha concentrate directly into hot milk causes it to clump and separate on contact. The drink is streaky and inconsistent. Method is everything.',
         retryNode:  'step2',
         retryLabel: '&#8592; Try Stage 2 Again'
       },
