@@ -254,7 +254,7 @@ body.section-light .side-dot.active {
   font-weight: 700; line-height: 0.9;
   color: var(--cream); letter-spacing: -0.025em;
 }
-.landing-title em { font-style: italic; color: var(--caramel-lt); }
+.landing-title em { font-style: normal; color: var(--cream); }
 .landing-desc {
   font-size: 1.05rem; color: rgba(245,239,227,0.68);
   max-width: 360px; line-height: 1.65;
