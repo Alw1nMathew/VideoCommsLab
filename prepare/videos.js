@@ -15,22 +15,13 @@ const VIDEOS = {
 
   /* ── YOGHURT BOWL ───────────────────────────────────────── */
   yoghurt: {
-    // intro node — plays when user first selects Yoghurt Bowl
-    intro:         'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777306119/yoghurt_bowl_start_kbh4t7.mp4',
-
-    // step1 choice node — plays before Stage 1 question appears
-    step1_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307465/yoghurt_bowl_step_1_os6tmf.mp4',
-
-    // step2_video node — plays after correct Stage 1 pick (oats), before Stage 2 question
-    step2_video:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307514/yoghurt_bowl_step_2_oqbrce.mp4',
-
-    // fail nodes — same failure video used for both Stage 1 and Stage 2 wrong choices
-    step1_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307475/yoghurt_bowl_failure_jf25md.mp4',
-    step2_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307475/yoghurt_bowl_failure_jf25md.mp4',
-
-    // success node — plays as the final correct outcome
-    step2_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777307576/yoghurt_bowl_success_qk2ule.mp4',
-  },
+  intro:         'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777395257/yoghurtbowlstart_tkgicd.mp4',
+  step1_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777395358/yoghurtbowlstep1_swiydq.mp4',
+  step2_video:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777395276/yoghurtbowlstep2_c1zznz.mp4',
+  step1_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777395118/yoghurtbowlfailuree_xbyj0r.mp4',
+  step2_wrong:   'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777395118/yoghurtbowlfailuree_xbyj0r.mp4',
+  step2_correct: 'https://res.cloudinary.com/dpj3gpqs5/video/upload/v1777395329/yoghurtbowlsuccess_qvakxb.mp4',
+},
 
   /* ── MATCHA ─────────────────────────────────────────────── */
   matcha: {
