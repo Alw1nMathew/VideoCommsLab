@@ -107,7 +107,6 @@ const STORIES = {
     },
     nodes: {
 
-      /* VideoStart plays → advances to step1 choice */
       intro: {
         type:       'intro',
         stageIndex: 0,
@@ -117,7 +116,6 @@ const STORIES = {
         next:       'step1'
       },
 
-      /* Stage 1 choice — shown over frozen start frame */
       step1: {
         type:       'choice',
         stageIndex: 0,
@@ -131,7 +129,6 @@ const STORIES = {
         ]
       },
 
-      /* Correct Stage 1 — plays step2 video then advances to Stage 2 choice */
       step2_video: {
         type:       'intro',
         stageIndex: 1,
@@ -141,7 +138,6 @@ const STORIES = {
         next:       'step2'
       },
 
-      /* Stage 2 choice — shown over frozen step2_video frame */
       step2: {
         type:       'choice',
         stageIndex: 1,
@@ -204,7 +200,6 @@ const STORIES = {
     },
     nodes: {
 
-      /* VideoStart plays → advances to step1 choice */
       intro: {
         type:       'intro',
         stageIndex: 0,
@@ -214,52 +209,49 @@ const STORIES = {
         next:       'step1'
       },
 
-      /* Stage 1 choice — shown over frozen VideoStart frame */
       step1: {
         type:       'choice',
         stageIndex: 0,
         title:      'Stage 1 &#8212; Ingredients',
         videoKey:   null,
-        text:       'Water temperature is the most critical variable in matcha preparation.',
-        question:   'What temperature water do you use to whisk the matcha powder?',
+        text:       'The milk you choose changes everything about the final drink. Some pairings bring out the natural sweetness of matcha. Others overpower it entirely.',
+        question:   'Which milk would you like to use for your Matcha?',
         options: [
-          { label: '75&#176;C &#8212; below boiling, preserves the natural sweetness', next: 'step1_correct_video' },
-          { label: '100&#176;C &#8212; boiling water, fully dissolves the powder',     next: 'fail1'              }
+          { label: 'Coconut Milk', next: 'step1_correct_video' },
+          { label: 'Lactose Milk', next: 'fail1'              }
         ]
       },
 
-      /* Correct Stage 1 — plays Stage1Correct video, then advances to Stage 2 choice */
       step1_correct_video: {
         type:       'intro',
         stageIndex: 1,
-        title:      'Perfect Temperature',
+        title:      'Perfect Choice',
         videoKey:   'step1_correct',
-        text:       '75°C — the catechins are preserved. The matcha is whisking beautifully.',
+        text:       'Coconut milk — light, subtly sweet, and a perfect match for matcha\'s earthy notes.',
         next:       'step2'
       },
 
-      /* Stage 2 choice — shown over frozen Stage1Correct frame */
       step2: {
         type:       'choice',
         stageIndex: 1,
         title:      'Stage 2 &#8212; Preparation',
         videoKey:   null,
-        text:       'The matcha concentrate is ready. Now comes the pour.',
-        question:   'How do you bring the matcha and milk together?',
+        text:       'The matcha concentrate is ready. A good sweetener should enhance the drink without masking the earthy notes of the matcha.',
+        question:   'Which sweetener would you like to use?',
         options: [
-          { label: 'Pour cold oat milk over ice, then layer the matcha shot over it', next: 'success' },
-          { label: 'Add the matcha concentrate directly into hot milk in the cup',     next: 'fail2'   }
+          { label: 'Maple Syrup', next: 'success' },
+          { label: 'Jam',         next: 'fail2'   }
         ]
       },
 
       fail1: {
         type:       'fail',
         stageIndex: 0,
-        title:      'Burned Matcha',
+        title:      'Wrong Milk',
         videoKey:   'step1_wrong',
         badge:      '&#x2717; Stage 1 Failed',
         badgeType:  'fail',
-        message:    'Boiling water scorches the delicate catechins in matcha, turning what should be sweet and grassy into something acrid and unpleasant. Temperature is not a suggestion — it is the preparation.',
+        message:    'Lactose milk is too heavy and overpowers the delicate grassy notes of matcha. The drink loses its balance completely — the customer can taste the clash. Coconut milk complements matcha. Lactose milk competes with it.',
         retryNode:  'step1',
         retryLabel: '&#8592; Try Stage 1 Again'
       },
@@ -267,11 +259,11 @@ const STORIES = {
       fail2: {
         type:       'fail',
         stageIndex: 1,
-        title:      'Clumped and Split',
+        title:      'Wrong Sweetener',
         videoKey:   'step2_wrong',
         badge:      '&#x2717; Stage 2 Failed',
         badgeType:  'fail',
-        message:    'Adding matcha concentrate directly into hot milk causes it to clump and separate on contact. The drink is streaky and inconsistent. Method is everything.',
+        message:    'Jam introduces fruit pulp and an overpowering sweetness that completely overwhelms the matcha. The drink is murky, unbalanced, and the customer is visibly confused. A sweetener should elevate the drink — not bury it.',
         retryNode:  'step2',
         retryLabel: '&#8592; Try Stage 2 Again'
       },
@@ -283,7 +275,7 @@ const STORIES = {
         videoKey:   'step2_correct',
         badge:      '&#x2713; Preparation Complete',
         badgeType:  'success',
-        message:    'A vibrant, silky matcha latte. Perfectly whisked at the right temperature, layered correctly over ice. The colour is luminous, the taste is balanced. Every decision made with precision.'
+        message:    'A vibrant, silky matcha latte. Coconut milk perfectly balanced, maple syrup enhancing without overpowering. The colour is luminous, the taste is clean and considered. Every decision made with precision.'
       }
 
     }
