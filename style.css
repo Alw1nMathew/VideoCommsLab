@@ -65,6 +65,7 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 .fp-light { background: var(--white); color: var(--espresso); }
 .fp-dark  { background: var(--dark-bg); color: var(--cream); }
@@ -620,30 +621,43 @@ body.section-light .side-dot.active {
   margin: 0.6rem 0 0.4rem;
 }
 .team-header p { font-size: 0.9rem; color: rgba(245,239,227,0.5); }
-
 .team-grid {
-  display: grid; grid-template-columns: repeat(4,1fr);
-  gap: 1.2rem; max-width: 1100px; margin: 0 auto; width: 100%;
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem; 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  width: 100%;
 }
+
 .team-card {
-  background: var(--dark-card); border: 1px solid var(--dark-bdr);
-  border-radius: var(--r); overflow: hidden;
-  display: flex; flex-direction: column;
-  transition: transform 0.2s;
+  background: var(--dark-card); 
+  border: 1px solid var(--dark-bdr);
+  border-radius: var(--r); 
+  overflow: hidden;
+  display: flex; 
+  flex-direction: column; 
+  transition: transform 0.3s ease;
 }
-.team-card:hover { transform: translateY(-4px); }
+
 .team-photo {
-  background: linear-gradient(160deg, var(--brown) 0%, var(--espresso) 100%);
-  height: 140px; display: flex; align-items: center; justify-content: center;
+  width: 100%; 
+  height: 250px; 
+  overflow: hidden;
+  background: #1a1a1a; 
 }
-.person-svg { width: 70px; height: 80px; }
-.team-body { padding: 1rem 1.1rem 1.2rem; }
-.team-body h3 {
-  font-family: var(--font-display); font-size: 1rem; font-weight: 600;
-  color: var(--cream); margin-bottom: 0.2rem;
+
+.team-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; 
 }
-.team-role { font-size: 0.72rem; color: var(--caramel); font-style: italic; margin-bottom: 0.5rem; }
-.team-desc { font-size: 0.76rem; color: rgba(245,239,227,0.5); line-height: 1.6; }
+
+.team-body { 
+  padding: 1.2rem; 
+  background: var(--dark-card); 
+}
 
 /* ═══════════════════════════════════════
    FULLSCREEN EXPERIENCE
