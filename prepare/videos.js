@@ -6,11 +6,11 @@ const VIDEOS = {
 
   /* ── COFFEE ─────────────────────────────────────────────── */
   coffee: {
-    intro:         'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777277993/Coffee_Intro_Clip_Compressed_mbwwyy.mp4',
-    step1_correct: 'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777278831/Step_2__Just_Enough_Coffee.mp4_Compressed_fy0mqy.mp4',
-    step1_wrong:   'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777278836/Step_2__Too_Much_Coffee.mp4_Compressed_rf1jog.mp4',
-    step2_milk:    'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777278927/Step_3__Add_Milk_and_Stir.mp4_Compressed_dg8bha.mp4',
-    step2_water:   'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777278924/Step_3__Add_Water_and_Stir.mp4_Compressed_vbldpt.mp4',
+    intro:         'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777370985/Step1_ohzzyw.mp4',
+    step1_correct: 'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777370945/Step2_one_spoons_grq9un.mp4',
+    step1_wrong:   'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777370953/Step2_two_spoons_v4mrbd.mp4',
+    step2_milk:    'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777371024/Step3_stir_milk_olafzg.mp4',
+    step2_water:   'https://res.cloudinary.com/dk59ei1bg/video/upload/v1777371015/Step3_stir_water_odgblh.mp4',
   },
 
   /* ── YOGHURT BOWL ───────────────────────────────────────── */
