@@ -12,7 +12,7 @@ const STORIES = {
     stages:  ['Ingredients', 'Preparation', 'Outcome'],
     intro: {
       heading:     'The Scene',
-      description: 'You are behind the counter of The Brew Lab. The machine is warmed up, the grinder is ready, and a customer has just ordered a coffee. Every decision you make determines whether they leave satisfied — or bewildered.'
+      description: 'You are behind the counter of The Brew Lab. Your custmer wants instant coffee'
     },
     nodes: {
 
@@ -21,7 +21,7 @@ const STORIES = {
         stageIndex: 0,
         title:      'The Brew Lab',
         videoKey:   'intro',
-        text:       'A quiet afternoon. The espresso machine hums softly. Your first order: one coffee. The portafilter is in your hand.',
+        text:       'A quiet afternoon. Your first order: one coffee. The ingredients are in your hand.',
         next:       'step1'
       },
 
@@ -30,11 +30,11 @@ const STORIES = {
         stageIndex: 0,
         title:      'Ingredients',
         videoKey:   null,
-        text:       'The portafilter is ready. How many spoons of coffee do you add?',
-        question:   'How many spoons of coffee do you add to the portafilter?',
+        text:       'The ingredients are ready. How many spoons of coffee do you use?',
+        question:   'How many spoons of coffee do you add to the cup?',
         options: [
-          { label: 'One spoon &#8212; precise and measured',  next: 'step2_video' },
-          { label: 'Two spoons &#8212; more flavour, surely', next: 'fail1'       }
+          { label: 'One spoon &#8212; ',  next: 'step2_video' },
+          { label: 'Two spoons &#8212; ', next: 'fail1'       }
         ]
       },
 
@@ -43,7 +43,7 @@ const STORIES = {
         stageIndex: 1,
         title:      'Just Enough Coffee',
         videoKey:   'step1_correct',
-        text:       'One precise spoon. The portafilter is loaded perfectly.',
+        text:       'One precise spoon. The coffee is loaded perfectly.',
         next:       'step2'
       },
 
@@ -52,11 +52,11 @@ const STORIES = {
         stageIndex: 1,
         title:      'Preparation',
         videoKey:   null,
-        text:       'The espresso shot is pulled. Now for the finish.',
+        text:       'The drink shot is almost done. Now for the finish.',
         question:   'What do you add to complete the drink?',
         options: [
-          { label: 'Add milk &#8212; steamed, smooth, velvety', next: 'outcome_milk'  },
-          { label: 'Add water &#8212; for a longer drink',       next: 'outcome_water' }
+          { label: 'Add milk &#8212; Instant Cappuccino', next: 'outcome_milk'  },
+          { label: 'Add water &#8212; Instant Americano',       next: 'outcome_water' }
         ]
       },
 
@@ -67,29 +67,29 @@ const STORIES = {
         videoKey:   'step1_wrong',
         badge:      '&#x2717; Too Much',
         badgeType:  'fail',
-        message:    'Two spoons? The portafilter is overflowing, there are coffee grounds on the ceiling, and the customer has started filming. The machine is filing a complaint. In this establishment we use one spoon &#8212; and only one spoon.',
+        message:    'Two spoons? That is too much, Wont dissolve well and totaly uneconomical for The Brew Lab, In this establishment we use one spoon &#8212; and only one spoon.',
         retryNode:  'step1',
-        retryLabel: '&#8592; Try the spoons again'
+        retryLabel: '&#8592; Try again'
       },
 
       outcome_milk: {
         type:       'success',
         stageIndex: 2,
-        title:      'A Perfect Latte',
+        title:      'Instant Cappuccino',
         videoKey:   'step2_milk',
         badge:      '&#x2713; Preparation Complete',
         badgeType:  'success',
-        message:    'One precise spoon, a clean espresso shot, and perfectly steamed milk. The customer takes a sip and nods slowly. That\'s the nod. Every decision at every stage was correct. Process matters.'
+        message:    'One precise spoon,  Every decision at every stage was correct. Process matters.'
       },
 
       outcome_water: {
         type:       'success',
         stageIndex: 2,
-        title:      'A Classic Americano',
+        title:      'Instant Americano',
         videoKey:   'step2_water',
         badge:      '&#x2713; Preparation Complete',
         badgeType:  'success',
-        message:    'One careful spoon, a clean espresso shot, hot water added with intention. The result is a solid Americano &#8212; longer, lighter, deliberate. A different drink, but a thoughtful one. Process still matters.'
+        message:    'One careful spoon, a clean Americano shot, hot water added with intention. The result is a solid Americano &#8212; longer, lighter, deliberate. A different drink, but a thoughtful one. Process still matters.'
       }
 
     }
