@@ -8,7 +8,7 @@ const STORIES = {
   coffee: {
     name:    'Coffee',
     icon:    '&#9749;',
-    tagline: 'Espresso-based preparation',
+    tagline: 'Intant Coffee preparation',
     stages:  ['Ingredients', 'Preparation', 'Outcome'],
     intro: {
       heading:     'The Scene',
@@ -67,7 +67,7 @@ const STORIES = {
         videoKey:   'step1_wrong',
         badge:      '&#x2717; Too Much',
         badgeType:  'fail',
-        message:    'Two spoons? That is too much, Wont dissolve well and totaly uneconomical for The Brew Lab, In this establishment we use one spoon &#8212; and only one spoon.',
+        message:    'Two spoons? That is too much, Wont dissolve well and totaly uneconomical for The Brew Lab, In this establishment we use one spoon and only one spoon.',
         retryNode:  'step1',
         retryLabel: '&#8592; Try again'
       },
@@ -89,7 +89,7 @@ const STORIES = {
         videoKey:   'step2_water',
         badge:      '&#x2713; Preparation Complete',
         badgeType:  'success',
-        message:    'One careful spoon, a clean Americano shot, hot water added with intention. The result is a solid Americano &#8212; longer, lighter, deliberate. A different drink, but a thoughtful one. Process still matters.'
+        message:    'One careful spoon, a clean Americano shot, hot water added with intention. The result is a solid Americano, longer, lighter, deliberate. A different drink, but a thoughtful one. Process still matters.'
       }
 
     }
@@ -120,20 +120,20 @@ const STORIES = {
         type:       'choice',
         stageIndex: 0,
         title:      'Stage 1 &#8212; Ingredients',
-        videoKey:   'step1_correct',
+        videoKey:   null,
         text:       'Every great yoghurt bowl begins with its base.',
         question:   'What do you add as the topping for Stage 1?',
         options: [
-          { label: 'Oats &#8212; wholesome and textured',                    next: 'step2_video' },
+          { label: 'Oats &#8212; wholesome and textured',                    next: 'step1_correct_video' },
           { label: 'Chopped brussels sprouts &#8212; interesting choice...', next: 'fail1'       }
         ]
       },
 
-      step2_video: {
+      step1_correct_video: {
         type:       'intro',
         stageIndex: 1,
         title:      'Good Choice',
-        videoKey:   'step2_video',
+        videoKey:   'step1_correct',
         text:       'Oats added. The bowl is taking shape nicely.',
         next:       'step2'
       },
